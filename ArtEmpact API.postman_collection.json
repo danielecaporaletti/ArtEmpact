@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "08498f12-2eae-4702-ae91-74c37dbd3df9",
+		"name": "ArtEmpact API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26423551"
+	},
+	"item": [
+		{
+			"name": "First APIs",
+			"item": [
+				{
+					"name": "TestOpenBackend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME}}/accessClose",
+							"host": [
+								"{{HOST_NAME}}"
+							],
+							"path": [
+								"accessClose"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestCloseBackend",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME}}/accessOpen",
+							"host": [
+								"{{HOST_NAME}}"
+							],
+							"path": [
+								"accessOpen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FinalRegistration",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"Roma\",\r\n    \"phone\": \"1234567890\",\r\n    \"usertype\": \"creative\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME}}/finalRegistrationStep",
+							"host": [
+								"{{HOST_NAME}}"
+							],
+							"path": [
+								"finalRegistrationStep"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FinalRegistration Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME}}/comuni/namesByPrefix?prefix=<PREFIX>",
+							"host": [
+								"{{HOST_NAME}}"
+							],
+							"path": [
+								"comuni",
+								"namesByPrefix"
+							],
+							"query": [
+								{
+									"key": "prefix",
+									"value": "<PREFIX>"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These requests are intended to complete a user's registration"
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "refreshRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "tokenRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "authRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://oauth.pstmn.io/v1/callback",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code_with_pkce",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "artempact-clien-web",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:8080/realms/artempact/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8080/realms/artempact/protocol/openid-connect/token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST_NAME",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

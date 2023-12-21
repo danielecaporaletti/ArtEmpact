@@ -1,0 +1,124 @@
+version: '3'
+
+services:
+
+  frontend-artempact:
+    build: 
+      context: ./frontend-artempact
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - artempact-network
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.1
+    command: 
+      - start-dev
+      - --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://mysql-keycloak:3306/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: f8rPm2b5HxN5abgw
+    ports:
+      - 8080:8080
+    volumes:
+      - ./seeding-data/realm-artempact-keycloak:/opt/keycloak/data/import
+      - ./seeding-data/keycloak-theme:/opt/keycloak/themes
+    depends_on:
+      mysql-keycloak:
+        condition: service_healthy
+    networks:
+      - artempact-network
+
+  backend-artempact:
+    build:
+      context: ./backend-artempact
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_REALM=artempact
+      - KEYCLOAK_CLIENT_ID=client-api
+      - KEYCLOAK_CLIENT_SECRET=Sxd7blWsnlkQrMpzAA6MPqsZXBgDOQw6
+      - DATABASE_ARTEMPACT_USERNAME=root
+      - DATABASE_ARTEMPACT_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
+      - DATABASE_ARTEMPACT_URL=jdbc:mysql://mysql-artempact:3306/artempact
+      - DATABASE_GEOGRAPHIC_USERNAME=root
+      - DATABASE_GEOGRAPHIC_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
+      - DATABASE_ITALIA_URL=jdbc:mysql://mysql-geographic:3306/geographic_ITALIA
+    depends_on:
+      mysql-artempact:
+        condition: service_healthy
+      mysql-geographic:
+        condition: service_healthy
+    networks:
+      - artempact-network
+  
+  mysql-keycloak:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: f8rPm2b5HxN5abgw
+      MYSQL_ROOT_PASSWORD: zgJS6WMxUmsLMpP
+    ports:
+      - 3300:3306
+    volumes:
+      - ./databases/mysql-keycloak:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - artempact-network
+
+  mysql-artempact:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: artempact
+      MYSQL_USER: artempact
+      MYSQL_PASSWORD: Y2JzeXVjZXd2ZGJ1
+      MYSQL_ROOT_PASSWORD: ZXJndWllZ3ZiaWVydmdicmVr
+    ports:
+      - 3400:3306
+    volumes:
+      - ./databases/mysql-artempact:/var/lib/mysql
+      - ./seeding-data/mysql-artempact:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - artempact-network
+
+  mysql-geographic:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: geographic_ITALIA
+      MYSQL_USER: geographic
+      MYSQL_PASSWORD: Y2JzeXVjZXd2ZGJ1
+      MYSQL_ROOT_PASSWORD: ZXJndWllZ3ZiaWVydmdicmVr
+    ports:
+      - 3500:3306
+    volumes:
+      - ./databases/mysql-geographic:/var/lib/mysql
+      - ./seeding-data/mysql-geographic:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - artempact-network
+
+networks:
+  artempact-network:
+    driver: bridge
+

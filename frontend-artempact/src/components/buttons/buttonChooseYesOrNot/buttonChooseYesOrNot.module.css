@@ -1,0 +1,43 @@
+.buttonEmoji {
+    background-color: transparent;
+    border-radius: 45%;
+    padding: 38px 29px 38px 29px;
+    border: 1.5px solid #623BFF;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.buttonEmoji:hover {
+    background-color: rgba(255, 255, 255, 0.339);
+}
+
+.buttonEmoji:active {
+    box-shadow: none;
+}
+
+.imageEmoji {
+    width: 20px;
+    height: 20px;
+}
+
+.buttonNotEmoji{
+    background-color: transparent;
+    border-radius: 45%;
+    padding: 22px 15px 22px 15px;
+    border: 1.5px solid #623BFF;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.buttonNotEmoji:hover {
+    background-color: rgba(255, 255, 255, 0.339);
+}
+
+.buttonNotEmoji:active {
+    box-shadow: none;
+}
+
+.imageNotEmoji {
+    width: 50px;
+    height: 50px;
+}

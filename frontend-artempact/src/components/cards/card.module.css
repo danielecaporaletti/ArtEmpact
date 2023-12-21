@@ -1,0 +1,126 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    background-size: cover;
+    width: 370px;
+    height: 650px;
+    border-radius: 30px;
+    position: relative;
+    transition: background-image 0.3s ease-in-out;
+}
+
+.arrowLeft {
+    position: absolute;
+    left: 2%;
+    top: 40%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.arrowLeft:hover {
+    transform: scale(1.4);
+    background-color: transparent;
+}
+
+.arrowLeft:active {
+    box-shadow: none;
+    transform: scale(0.95);
+}
+
+.arrowRight {
+    position: absolute;
+    right: 2%;
+    top: 40%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.arrowRight:hover {
+    transform: scale(1.4);
+    background-color: transparent;
+}
+
+.arrowRight:active {
+    box-shadow: none;
+    transform: scale(0.95);
+}
+
+.position1, .position2, .position3 {
+    background-color: white;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 77%;
+}
+
+.position1 {
+    left: 42%;
+}
+
+.position2 {
+    left: 49%;
+}
+
+.position3 {
+    left: 56%;
+}
+
+.active {
+    background-color: blueviolet;
+}
+
+.infoContainer {
+    background-color: rgba(255, 255, 255, 0.648);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 20px;
+    position: relative;
+}
+
+.name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    text-decoration: underline;
+}
+
+.badge {
+    width: 15px;
+    position: absolute;
+    right: 41%;
+    top: 22%;
+}
+
+.menu {
+    width: 20px;
+    position: absolute;
+    right: 3%;
+    top: 10%;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.menu:hover {
+    transform: scale(1.4);
+    background-color: transparent;
+}
+
+.menu:active {
+    box-shadow: none;
+    transform: scale(0.95);
+}
+
+.menuIMG {
+
+}
+
+.type {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
