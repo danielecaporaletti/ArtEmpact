@@ -1,0 +1,21 @@
+CONTAINER
+`docker ps`: Elenca tutti i container in esecuzione.
+`docker ps -a`: Elenca tutti i container, anche quelli fermati.
+`docker stop [nome_container]`: Ferma un container in esecuzione.
+`docker start [nome_container]`: Avvia un container fermato.
+`docker rm [nome_container]`: Rimuove un container.
+
+COMPOSE (GRUPPI DI CONTAINER)
+`docker-compose up -d`: Avvia tutti i servizi definiti nel file docker-compose.yml. -d per eseguirli in background.
+`docker-compose stop`: Ferma tutti i servizi definiti nel file docker-compose.yml senza rimuoverli.
+`docker-compose start`: Riavviare i container definiti nel file docker-compose.yml.
+`docker-compose down`: Ferma e rimuove tutti i servizi, network e opzionalmente anche volumi (aggiungendo -v) definiti nel file docker-compose.yml.
+
+IMMAGINI
+`docker images`: Elenca tutte le immagini locali.
+`docker rmi [nome_immagine]`: Rimuove un'immagine locale.
+`docker rmi $(docker images -q) -f`: Rimuove tutte le immagini
+
+MONITORAGGIO
+`docker logs [nome_container]`: Visualizza i log di un container.
+`docker stats`: Mostra le statistiche in tempo reale dei container in esecuzione.

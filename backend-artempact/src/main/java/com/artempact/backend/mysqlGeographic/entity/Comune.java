@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "gi_comuni_cap")
+@Table(name = "gi_comuni")
 public class Comune {
 
     @Id
@@ -32,29 +32,8 @@ public class Comune {
     @Column(name = "denominazione_altra", length = 191)
     private String denominazioneAltra;
 
-    @Column(name = "cap", length = 10)
-    private String cap;
-
     @Column(name = "sigla_provincia", length = 4)
     private String siglaProvincia;
-
-    @Column(name = "denominazione_provincia", length = 50)
-    private String denominazioneProvincia;
-
-    @Column(name = "tipologia_provincia", length = 100)
-    private String tipologiaProvincia;
-
-    @Column(name = "codice_regione", length = 4)
-    private String codiceRegione;
-
-    @Column(name = "denominazione_regione", length = 50)
-    private String denominazioneRegione;
-
-    @Column(name = "tipologia_regione", length = 30)
-    private String tipologiaRegione;
-
-    @Column(name = "ripartizione_geografica", length = 20)
-    private String ripartizioneGeografica;
 
     @Column(name = "flag_capoluogo", length = 4)
     private String flagCapoluogo;
@@ -70,5 +49,8 @@ public class Comune {
 
     @Column(name = "superficie_kmq", precision = 10, scale = 4)
     private BigDecimal superficieKmq;
+
+    @Column(name= "codice_sovracomunale", precision = 6)
+    private String codiceSovracomunale;
 
 }

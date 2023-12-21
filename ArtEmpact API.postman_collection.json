@@ -45,11 +45,8 @@
 				},
 				{
 					"name": "FinalRegistration",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -73,7 +70,7 @@
 					"response": []
 				},
 				{
-					"name": "FinalRegistration Copy",
+					"name": "Find City By Index",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -189,6 +186,11 @@
 		{
 			"key": "HOST_NAME",
 			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "HOST_NAME_BACKEND",
+			"value": "http://localhost:8081",
 			"type": "string"
 		}
 	]
