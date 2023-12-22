@@ -674,15 +674,15 @@
       "clientId": "artempact-clien-web",
       "name": "${Artempact_Clien_Web}",
       "description": "Client for the web App and progressive web App",
-      "rootUrl": "http://34.154.173.122:3000",
-      "adminUrl": "http://34.154.173.1223000",
+      "rootUrl": "http://34.16.155.45:3000",
+      "adminUrl": "http://34.16.155.45:3000",
       "baseUrl": "/home",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://34.154.173.122:3000",
+        "http://34.16.155.45:3000",
         "http://localhost:3000",
         "/",
         "https://oauth.pstmn.io/v1/callback"
