@@ -1,40 +1,4 @@
-# Struttura del progetto
 
-/frontend-artempact
-├── node_modules/       //Pacchetti del progetto installati.   
-├── public/             //File accessibili al pubblico
-│   ├── index.html
-│   ├── favicon.ico
-├── src/               // tutto il codice sorgente dell'applicazione
-│   ├── assets/        // per immagini, stili globali, ecc.
-│   ├── components/    // componenti React riutilizzabili
-|   ├── config/        // configurazione dell'ambiente
-│   ├── services/      // funzioni di utilità, servizi API, ecc.
-│   ├── hooks/         // custom hooks
-│   ├── locales/       // per la localizzazione/internazionalizzazione
-│   ├── routes/        // gestione delle rotte
-│   ├── store/         // se stai utilizzando Redux o MobX, ecc.
-│   ├── utils/         // utility functions
-│   ├── views/         // componenti a livello di pagina
-│   │   ├── Home/
-│   │   │   ├── components/
-│   │   │   ├── tests/
-│   │   │   ├── Home.js
-│   │   ├── Profile/
-│   │   │   ├── components/
-│   │   │   ├── tests/
-│   │   │   ├── Profile.js
-|   |   ├── test/              // test globali (unitari, integrazione, end-to-end)
-|   |   ├── scripts/           // script personalizzati
-│   ├── App.js
-│   ├── App.css
-│   ├── index.js
-│   ├── index.css
-│   ├── reportWebVitals.js
-├── package.json
-├── package-lock.json
-├── .gitignore
-├── README.md
 
 
 1. `node_modules/`: Questa cartella contiene tutti i pacchetti del progetto che vengono installati attraverso npm o yarn.

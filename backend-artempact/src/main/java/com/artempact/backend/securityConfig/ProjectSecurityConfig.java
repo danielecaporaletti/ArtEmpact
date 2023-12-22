@@ -34,8 +34,8 @@ public class ProjectSecurityConfig {
                 .cors(cors ->
                         cors.configurationSource(request -> {
                             CorsConfiguration config = new CorsConfiguration();
-                            config.setAllowedOrigins(Collections.singletonList("http://158.180.237.195:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("https://158.180.237.195:3000"));
+                            config.setAllowedOrigins(Collections.singletonList("http://34.16.155.45:3000"));
+                            config.setAllowedOrigins(Collections.singletonList("https://34.16.155.45:3000"));
                             config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
                             config.setAllowedOrigins(Collections.singletonList("http://localhost:80"));
                             config.setAllowedMethods(Collections.singletonList("*"));
