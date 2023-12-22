@@ -682,8 +682,7 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://34.16.155.45:3000",
-        "http://localhost:3000",
+        "/*",
         "/",
         "https://oauth.pstmn.io/v1/callback"
       ],
