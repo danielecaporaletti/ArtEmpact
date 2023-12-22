@@ -19,10 +19,6 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
-      KC_HTTP_ENABLED: true
       KC_DB: mysql
       KC_DB_URL: jdbc:mysql://mysql-keycloak:3306/keycloak
       KC_DB_USERNAME: keycloak
