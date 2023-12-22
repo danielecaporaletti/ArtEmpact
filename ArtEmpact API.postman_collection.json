@@ -10,7 +10,7 @@
 			"name": "First APIs",
 			"item": [
 				{
-					"name": "TestOpenBackend",
+					"name": "TestCloseBackend",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -27,7 +27,7 @@
 					"response": []
 				},
 				{
-					"name": "TestCloseBackend",
+					"name": "TestOpenBackend",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -101,6 +101,16 @@
 		"type": "oauth2",
 		"oauth2": [
 			{
+				"key": "accessTokenUrl",
+				"value": "http://34.16.155.45:8080/realms/artempact/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://34.16.155.45:8080/realms/artempact/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
 				"key": "refreshRequestParams",
 				"value": [],
 				"type": "any"
@@ -141,11 +151,6 @@
 				"type": "string"
 			},
 			{
-				"key": "authUrl",
-				"value": "http://localhost:8080/realms/artempact/protocol/openid-connect/auth",
-				"type": "string"
-			},
-			{
 				"key": "addTokenTo",
 				"value": "header",
 				"type": "string"
@@ -153,11 +158,6 @@
 			{
 				"key": "client_authentication",
 				"value": "header",
-				"type": "string"
-			},
-			{
-				"key": "accessTokenUrl",
-				"value": "http://localhost:8080/realms/artempact/protocol/openid-connect/token",
 				"type": "string"
 			}
 		]
@@ -184,13 +184,23 @@
 	],
 	"variable": [
 		{
-			"key": "HOST_NAME",
+			"key": "LOCAL_HOST_NAME_KEYCLOAK",
 			"value": "http://localhost:8080",
 			"type": "string"
 		},
 		{
-			"key": "HOST_NAME_BACKEND",
+			"key": "HOST_NAME_KEYCLOAK",
+			"value": "http://34.16.155.45:8080",
+			"type": "string"
+		},
+		{
+			"key": "LOCAL_HOST_NAME_BACKEND",
 			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "HOST_NAME_BACKEND",
+			"value": "http://34.16.155.45:8081",
 			"type": "string"
 		}
 	]
