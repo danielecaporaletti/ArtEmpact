@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@PropertySource({ "classpath:persistence-multiple-db.properties" })
+@PropertySource({"classpath:persistence-multiple-db.properties"})
 @EnableJpaRepositories(
         basePackages = "com.artempact.backend.mysqlGeographic",
         entityManagerFactoryRef = "italiaEntityManager",
@@ -32,16 +32,16 @@ public class PersistenceGeographicConfigurationDB {
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(italiaDataSource());
         em.setPackagesToScan(
-                new String[] { "com.artempact.backend.mysqlGeographic.entity" });
+                new String[]{"com.artempact.backend.mysqlGeographic.entity"});
 
         HibernateJpaVendorAdapter vendorAdapter
                 = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("hibernate.hbm2ddl.auto"));
+                env.getProperty("geographic.hibernate.hbm2ddl.auto"));
         properties.put("hibernate.dialect",
-                env.getProperty("hibernate.dialect"));
+                env.getProperty("geographic.hibernate.dialect"));
         em.setJpaPropertyMap(properties);
 
         return em;

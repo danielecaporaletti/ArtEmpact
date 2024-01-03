@@ -1,13 +1,12 @@
 package com.artempact.backend.mysqlKeycloak.controller;
 
 
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.StandardClaimNames;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GetUserAttributes {
@@ -36,6 +35,7 @@ public class GetUserAttributes {
 
         System.out.println("ID" + preferredUsername);
         System.out.println("EMAIL" + subject);
+        System.out.println("BIRTHDATE" + BIRTHDATE);
         System.out.println("UPDATED_AT" + UPDATED_AT);
         System.out.println("GENDER" + GENDER);
         System.out.println("PROFILE" + PROFILE);
@@ -43,7 +43,7 @@ public class GetUserAttributes {
         System.out.println("WEBSITE" + WEBSITE);
         System.out.println("LOCALE" + LOCALE);
         System.out.println("MIDDLE_NAME" + MIDDLE_NAME);
-        System.out.println("GIVEN_NAME" + GIVEN_NAME);
+        System.out.println("GIVEN_NAME" + GIVEN_NAME); // Nome
         System.out.println("PICTURE" + PICTURE);
         System.out.println("FAMILY_NAME" + FAMILY_NAME);
         System.out.println("NICKNAME" + NICKNAME);

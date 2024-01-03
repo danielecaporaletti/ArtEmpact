@@ -50,7 +50,7 @@ public class Comune {
     @Column(name = "superficie_kmq", precision = 10, scale = 4)
     private BigDecimal superficieKmq;
 
-    @Column(name= "codice_sovracomunale", precision = 6)
+    @Column(name = "codice_sovracomunale", precision = 6)
     private String codiceSovracomunale;
 
 }

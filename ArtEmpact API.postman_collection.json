@@ -15,9 +15,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_NAME}}/accessClose",
+							"raw": "{{HOST_NAME_BACKEND}}/accessClose",
 							"host": [
-								"{{HOST_NAME}}"
+								"{{HOST_NAME_BACKEND}}"
 							],
 							"path": [
 								"accessClose"
@@ -29,12 +29,15 @@
 				{
 					"name": "TestOpenBackend",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_NAME}}/accessOpen",
+							"raw": "{{HOST_NAME_BACKEND}}/accessOpen",
 							"host": [
-								"{{HOST_NAME}}"
+								"{{HOST_NAME_BACKEND}}"
 							],
 							"path": [
 								"accessOpen"
@@ -50,7 +53,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"city\": \"Roma\",\r\n    \"phone\": \"1234567890\",\r\n    \"usertype\": \"creative\"\r\n}",
+							"raw": "{\r\n    \"city\": \"Brescia\",\r\n    \"province\": \"BS\",\r\n    \"phone\": \"123456789\",\r\n    \"userType\": \"business\",\r\n    \"stageName\": \"Nome Creativo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -58,9 +61,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{HOST_NAME}}/finalRegistrationStep",
+							"raw": "{{HOST_NAME_BACKEND}}/finalRegistrationStep",
 							"host": [
-								"{{HOST_NAME}}"
+								"{{HOST_NAME_BACKEND}}"
 							],
 							"path": [
 								"finalRegistrationStep"
@@ -75,9 +78,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST_NAME}}/comuni/namesByPrefix?prefix=<PREFIX>",
+							"raw": "{{HOST_NAME_BACKEND}}/comuni/namesByPrefix?prefix=<INDEX>",
 							"host": [
-								"{{HOST_NAME}}"
+								"{{HOST_NAME_BACKEND}}"
 							],
 							"path": [
 								"comuni",
@@ -86,8 +89,438 @@
 							"query": [
 								{
 									"key": "prefix",
-									"value": "<PREFIX>"
+									"value": "<INDEX>"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfileCreative",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyProfileCreative",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Alice\",\r\n    \"surname\": \"Johnson\",\r\n    \"typeOfCreative\": 2,\r\n    \"jobSearchLocations\": [\r\n        {\r\n            \"city\": \"Brescia\", \r\n            \"province\": \"BS\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteJobSearchLocation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/jobSearchLocation/{jobSearchLocationId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"jobSearchLocation",
+								"{jobSearchLocationId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "newProjectCreative",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NomeProva\",\r\n    \"year\": 2010,\r\n    \"type\": \"TypeDiProgetto\",\r\n    \"description\": \"Descrizione\",\r\n    \"customer\": null,\r\n    \"link\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/projectCreative",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"projectCreative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProjectCreative",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/projectCreative/{projectCreativeId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"projectCreative",
+								"{projectCreativeId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyProjectCreative",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"NomeProva\",\r\n    \"year\": 2010,\r\n    \"type\": \"TypeDiProgetto\",\r\n    \"description\": \"Descrizione\",\r\n    \"customer\": null,\r\n    \"link\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/projectCreative/{projectCreativeId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"projectCreative",
+								"{projectCreativeId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBusinessSeeksCreative",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/business/businessSeeksCreative",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"business",
+								"businessSeeksCreative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBusinessSeeksCreative",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Titolo\",\r\n    \"description\": \"Descrizione\",\r\n    \"minProjectBudget\": 20,\r\n    \"maxProjectBudget\": 30,\r\n    \"cardColor\": \"#30AA76\",\r\n    \"educationalBackground\": 2,\r\n    \"experienceLevel\": 3,\r\n    \"professionalRelationship\": 1,\r\n    \"companyVisionMission\": \"Description of the Vision company\",\r\n    \"identifyCreativeType\": 3,\r\n    \"locality\": {\r\n        \"city\": \"Brescia\",\r\n        \"province\": \"BS\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/business/businessSeeksCreative",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"business",
+								"businessSeeksCreative"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyBusinessSeeksCreative Copy",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"New Description\",\r\n    \"minProjectBudget\": 3000,\r\n    \"cardColor\": \"#RRGGBB\",\r\n    \"locality\": {\r\n            \"city\": \"Brescia\",\r\n            \"province\": \"BS\"\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/business/businessSeeksCreative/{businessSeeksCreativeId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"business",
+								"businessSeeksCreative",
+								"{businessSeeksCreativeId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBusinessSeeksCreative",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/business/businessSeeksCreative/{businessSeeksCreativeId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"business",
+								"businessSeeksCreative",
+								"{businessSeeksCreativeId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCreativeSeeksCollaboration",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksCollaboration",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksCollaboration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCreativeSeeksCollaboration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Titolo\",\r\n    \"description\": \"Descrizione\",\r\n    \"minProjectBudget\": 20,\r\n    \"maxProjectBudget\": 30,\r\n    \"cardColor\": \"#30AA76\",\r\n    \"educationalBackground\": 2,\r\n    \"experienceLevel\": 3,\r\n    \"professionalRelationship\": 1,\r\n    \"personalVisionMission\": \"Description of the Vision\",\r\n    \"identifyCreativeType\": 3,\r\n    \"locality\": {\r\n        \"city\": \"Brescia\",\r\n        \"province\": \"BS\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksCollaboration",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksCollaboration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyCreativeSeeksCollaboration",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"New Description\",\r\n    \"minProjectBudget\": 3000,\r\n    \"cardColor\": \"#RRGGBB\",\r\n    \"locality\": {\r\n            \"city\": \"Brescia\",\r\n            \"province\": \"BS\"\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksCollaboration/{creativeSeeksCollaborationId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksCollaboration",
+								"{creativeSeeksCollaborationId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCreativeSeeksCollaboration",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksCollaboration/{creativeSeeksCollaborationId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksCollaboration",
+								"{creativeSeeksCollaborationId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCreativeSeeksBusiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksBusiness",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksBusiness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCreativeSeeksBusiness",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Titolo\",\r\n    \"description\": \"Descrizione\",\r\n    \"minProjectBudget\": 20,\r\n    \"maxProjectBudget\": 30,\r\n    \"cardColor\": \"#30AA76\",\r\n    \"educationalBackground\": 2,\r\n    \"experienceLevel\": 3,\r\n    \"professionalRelationship\": 1,\r\n    \"positionDescription\": \"Description of the Vision\",\r\n    \"identifyBusinesType\": 3,\r\n    \"jobSearchLocationCards\": [\r\n        {\r\n            \"city\": \"Brescia\",\r\n                \"province\": \"BS\"\r\n        },\r\n        {\r\n            \"city\": \"Milano\",\r\n            \"province\": \"MI\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksBusiness",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksBusiness"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyCreativeSeeksBusiness",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"New Description\",\r\n    \"minProjectBudget\": 3000,\r\n    \"cardColor\": \"#RRGGBB\",\r\n        \"jobSearchLocationCards\": [\r\n            {\r\n                \"city\": \"Brescia\",\r\n                \"province\": \"BS\"\r\n            }\r\n        ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksBusiness/{creativeSeeksBusinessId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksBusiness",
+								"{creativeSeeksBusinessId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyCreativeSeeksBusiness Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_NAME_BACKEND}}/profile/creative/creativeSeeksBusiness/{creativeSeeksBusinessId}",
+							"host": [
+								"{{HOST_NAME_BACKEND}}"
+							],
+							"path": [
+								"profile",
+								"creative",
+								"creativeSeeksBusiness",
+								"{creativeSeeksBusinessId}"
 							]
 						}
 					},
@@ -101,13 +534,28 @@
 		"type": "oauth2",
 		"oauth2": [
 			{
+				"key": "useBrowser",
+				"value": false,
+				"type": "boolean"
+			},
+			{
 				"key": "accessTokenUrl",
-				"value": "http://34.16.155.45:8080/realms/artempact/protocol/openid-connect/auth",
+				"value": "{{HOST_NAME_KEYCLOAK}}/realms/artempact/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://oauth.pstmn.io/v1/callback",
 				"type": "string"
 			},
 			{
 				"key": "authUrl",
-				"value": "http://34.16.155.45:8080/realms/artempact/protocol/openid-connect/auth",
+				"value": "{{HOST_NAME_KEYCLOAK}}/realms/artempact/protocol/openid-connect/auth",
 				"type": "string"
 			},
 			{
@@ -128,16 +576,6 @@
 			{
 				"key": "challengeAlgorithm",
 				"value": "S256",
-				"type": "string"
-			},
-			{
-				"key": "useBrowser",
-				"value": true,
-				"type": "boolean"
-			},
-			{
-				"key": "redirect_uri",
-				"value": "https://oauth.pstmn.io/v1/callback",
 				"type": "string"
 			},
 			{
@@ -184,18 +622,8 @@
 	],
 	"variable": [
 		{
-			"key": "LOCAL_HOST_NAME_KEYCLOAK",
-			"value": "http://localhost:8080",
-			"type": "string"
-		},
-		{
 			"key": "HOST_NAME_KEYCLOAK",
 			"value": "http://34.16.155.45:8080",
-			"type": "string"
-		},
-		{
-			"key": "LOCAL_HOST_NAME_BACKEND",
-			"value": "http://localhost:8081",
 			"type": "string"
 		},
 		{

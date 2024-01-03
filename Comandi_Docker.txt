@@ -19,3 +19,11 @@ IMMAGINI
 MONITORAGGIO
 `docker logs [nome_container]`: Visualizza i log di un container.
 `docker stats`: Mostra le statistiche in tempo reale dei container in esecuzione.
+
+
+docker exec -it 494a14d3f9b8 /bin/bash
+
+
+./kcadm.sh config credentials --server http://localhost:8080 --realm artempact --user admin
+
+./kcadm.sh update realms/artempact -s sslRequired=NONE

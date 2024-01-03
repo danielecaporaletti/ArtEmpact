@@ -1,5 +1,7 @@
 package com.artempact.backend.mysqlGeographic.controller;
 
+import com.artempact.backend.mysqlGeographic.entity.Comune;
+import com.artempact.backend.mysqlGeographic.entity.ComuneDTO;
 import com.artempact.backend.mysqlGeographic.reposity.ComuneRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comuni")
@@ -20,8 +23,11 @@ public class ComuneController {
     }
 
     @GetMapping("/namesByPrefix")
-    public ResponseEntity<List<String>> searchByDenominazione(@RequestParam String prefix) {
-        List<String> result = comuneRepository.findDenominazioneItaByStartingWith(prefix);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<List<ComuneDTO>> searchByPrefix(@RequestParam String prefix) {
+        List<Comune> comuni = comuneRepository.findComuneByDenominazioneItaStartingWith(prefix);
+        List<ComuneDTO> dtoList = comuni.stream()
+                .map(comune -> new ComuneDTO(comune.getDenominazioneIta(), comune.getSiglaProvincia()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtoList);
     }
 }

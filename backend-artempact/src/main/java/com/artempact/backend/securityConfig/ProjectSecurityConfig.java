@@ -55,7 +55,33 @@ public class ProjectSecurityConfig {
                                 .requestMatchers("/percorsi", "/per", "/business").hasRole("business")
                                 .requestMatchers("/percorsi", "/per", "/creativi","/premium").hasAnyRole("creative","premium")
                                 .requestMatchers("/percorsi", "/per", "/business","/premium").hasAnyRole("business","premium")
-                                .requestMatchers("/percorso", "/con", "/protezione", "/accessClose", "/finalRegistrationStep", "/comuni/namesByPrefix").authenticated()
+                                .requestMatchers("/percorso", "/con", "/protezione", "/accessClose",
+                                        "/educationType", //GET
+                                        "/typeOfCreative", //GET
+                                        "/workPreference", //GET
+                                        "/typeOfBusiness", //GET
+                                        "/experienceLevel", //GET
+                                        "/professionalRelationship", //GET
+                                        "/finalRegistrationStep", //POST
+                                        "/comuni/namesByPrefix", //GET
+
+                                        "/profile/creative", // GET, PATCH
+                                        "/profile/creative/jobSearchLocation/{jobSearchLocationId}", // DELETE
+                                        "/profile/creative/projectCreative", // POST
+                                        "/profile/creative/projectCreative/{projectCreativeId}", // DELETE, PATCH
+
+                                        "/profile/business", //GET, PATCH
+                                        "/profile/business/creativeSearchLocation/{creativeSearchLocationId}", // DELETE
+
+                                        "/profile/business/businessSeeksCreative", // GET, POST
+                                        "/profile/business/businessSeeksCreative/{businessSeeksCreativeId}", // PATCH, DELETE
+                                        "/profile/creative/creativeSeeksCollaboration", // GET, POST
+                                        "/profile/creative/creativeSeeksCollaboration/{creativeSeeksCollaborationId}", // PATCH, DELETE
+                                        "/profile/creative/creativeSeeksBusiness", // GET, POST
+                                        "/profile/creative/creativeSeeksBusiness/{creativeSeeksBusinessId}", // PATCH, DELETE
+                                        "/profile/creative/creativeSeeksBusiness/jobSearchLocationCard/{jobSearchLocationCardId}" // DELETE
+
+                                ).authenticated()
                                 .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
