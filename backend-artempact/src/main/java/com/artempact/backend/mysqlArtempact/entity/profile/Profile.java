@@ -92,6 +92,32 @@ public abstract class Profile {
     @Column(name = "profileCompletionPercentage", columnDefinition = "SMALLINT")
     private Short profileCompletionPercentage;
 
+    // Photo Names
+    @Size(max = 280, message = "The photo name exceeds 280 characters")
+    @Column(name = "photo1", length = 280)
+    private String photo1;
+
+    @Size(max = 280, message = "The photo name exceeds 280 characters")
+    @Column(name = "photo2", length = 280)
+    private String photo2;
+
+    @Size(max = 280, message = "The photo name exceeds 280 characters")
+    @Column(name = "photo3", length = 280)
+    private String photo3;
+
+    @Size(max = 280, message = "The photo name exceeds 280 characters")
+    @Column(name = "photoPremium1", length = 280)
+    private String photoPremium1;
+
+    @Size(max = 280, message = "The photo name exceeds 280 characters")
+    @Column(name = "photoPremiumL2", length = 280)
+    private String photoPremiumL2;
+
+    // Document
+    @Size(max = 280, message = "The document name exceeds 280 characters")
+    @Column(name = "document1", length = 280)
+    private String document1;
+
     public Profile(String id, String email, String phone, String name, String surname, LocalDate dob, String city, String province) {
         this.id = id;
         this.email = email;

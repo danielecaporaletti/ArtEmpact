@@ -1,11 +1,8 @@
 package com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness;
 
 import com.artempact.backend.mysqlArtempact.entity.card.Card;
-import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.JobSearchLocationCard;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.EducationType;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ExperienceLevel;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ProfessionalRelationship;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.TypeOfBusiness;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocation;
+import com.artempact.backend.mysqlArtempact.entity.lookupEntity.*;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileCreative.ProfileCreative;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -31,12 +28,12 @@ public class CreativeSeeksBusiness extends Card {
 
     //`@ManyToOne` indica che molti `CreativeSeeksBusiness` possono essere associati a un singolo `TypeOfBusiness`
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "identifyBusinesType_id", referencedColumnName = "id")
-    private TypeOfBusiness identifyBusinesType;
+    @JoinColumn(name = "identifyBusinessType_id", referencedColumnName = "id")
+    private TypeOfBusiness identifyBusinessType;
 
-    // `@OneToMany` indica che un singolo `CreativeSeeksBusiness` può essere associato a molte `JobSearchLocationCard`
+    // `@OneToMany` indica che un singolo `CreativeSeeksBusiness` può essere associato a molte `CreativeSeeksBusinessLocation`
     @OneToMany(mappedBy = "creativeSeeksBusiness", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<JobSearchLocationCard> jobSearchLocationCards;
+    private Set<CreativeSeeksBusinessLocation> creativeSeeksBusinessLocations;
 
     // `@ManyToOne` indica che molti `CreativeSeeksBusiness` possono essere associate a un singolo `ProfileCreative`
     @JsonIgnore
@@ -44,10 +41,10 @@ public class CreativeSeeksBusiness extends Card {
     @JoinColumn(name = "profile_creative_id")
     private ProfileCreative profileCreative;
 
-    public CreativeSeeksBusiness(String title, String description, Integer setMinProjectBudget, Integer setMaxProjectBudget, String cardColor, EducationType educationalBackground, ExperienceLevel experienceLevel, ProfessionalRelationship professionalRelationship, String positionDescription, TypeOfBusiness identifyBusinesType, Set<JobSearchLocationCard> jobSearchLocationCards) {
-        super(title, description, setMinProjectBudget, setMaxProjectBudget, cardColor, educationalBackground, experienceLevel, professionalRelationship);
+    public CreativeSeeksBusiness(String title, String description, Integer setMinProjectBudget, Integer setMaxProjectBudget, String cardColor, EducationType educationalBackground, ExperienceLevel experienceLevel, ProfessionalRelationship professionalRelationship, String positionDescription, TypeOfBusiness identifyBusinessType, Set<CreativeSeeksBusinessLocation> creativeSeeksBusinessLocations, WorkPreference workPreference) {
+        super(title, description, setMinProjectBudget, setMaxProjectBudget, cardColor, educationalBackground, experienceLevel, professionalRelationship, workPreference);
         this.positionDescription = positionDescription;
-        this.identifyBusinesType = identifyBusinesType;
-        this.jobSearchLocationCards = jobSearchLocationCards;
+        this.identifyBusinessType = identifyBusinessType;
+        this.creativeSeeksBusinessLocations = creativeSeeksBusinessLocations;
     }
 }

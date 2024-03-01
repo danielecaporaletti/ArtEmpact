@@ -1,15 +1,12 @@
 package com.artempact.backend.mysqlArtempact.controller.card.creativeSeeksBusiness;
 
 import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.CreativeSeeksBusinessDTO;
-import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.junctionTable.JobSearchLocationCardDTO;
+import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocationDTO;
 import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.CreativeSeeksBusiness;
-import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.JobSearchLocationCard;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocation;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileCreative.ProfileCreative;
 import com.artempact.backend.mysqlArtempact.repository.card.creativeSeeksBusiness.CreativeSeeksBusinessRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.EducationTypeRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ExperienceLevelRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ProfessionalRelationshipRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.TypeOfBusinessRepository;
+import com.artempact.backend.mysqlArtempact.repository.lookupRepository.*;
 import com.artempact.backend.mysqlArtempact.repository.profile.profileCreative.ProfileCreativeRepository;
 import com.artempact.backend.mysqlArtempact.validator.card.creativeSeeksBusiness.CreativeSeeksBusinessDTOValidator;
 import jakarta.persistence.EntityNotFoundException;
@@ -46,6 +43,8 @@ public class CreativeSeeksBusinessController {
     private TypeOfBusinessRepository typeOfBusinessRepository;
     @Autowired
     private CreativeSeeksBusinessControllerService creativeSeeksBusinessControllerService;
+    @Autowired
+    private WorkPreferenceRepository workPreferenceRepository;
 
     @GetMapping
     public ResponseEntity<?> getCreativeSeeksBusiness(JwtAuthenticationToken auth) {
@@ -90,11 +89,14 @@ public class CreativeSeeksBusinessController {
         if (creativeSeeksBusinessDTO.getPositionDescription() == null || creativeSeeksBusinessDTO.getPositionDescription().isEmpty()) {
             bindingResult.rejectValue("positionDescription", "field.required.positionDescription", "PositionDescription is required.");
         }
-        if (creativeSeeksBusinessDTO.getIdentifyBusinesType() == null || creativeSeeksBusinessDTO.getIdentifyBusinesType().isEmpty()) {
-            bindingResult.rejectValue("identifyBusinesType", "field.required.identifyBusinesType", "IdentifyBusinesType is required.");
+        if (creativeSeeksBusinessDTO.getIdentifyBusinessType() == null || creativeSeeksBusinessDTO.getIdentifyBusinessType().isEmpty()) {
+            bindingResult.rejectValue("identifyBusinessType", "field.required.identifyBusinessType", "IdentifyBusinesType is required.");
         }
-        if (creativeSeeksBusinessDTO.getJobSearchLocationCards() == null) {
-            bindingResult.rejectValue("jobSearchLocationCards", "field.required.jobSearchLocationCards", "JobSearchLocationCards is required.");
+        if (creativeSeeksBusinessDTO.getCreativeSeeksBusinessLocations() == null) {
+            bindingResult.rejectValue("creativeSeeksBusinessLocations", "field.required.creativeSeeksBusinessLocations", "CreativeSeeksBusinessLocations is required.");
+        }
+        if (creativeSeeksBusinessDTO.getWorkPreference() == null) {
+            bindingResult.rejectValue("workPreference", "field.required.workPreference", "WorkPreference is required.");
         }
 
         // Se ci sono errori nei campi obbligatori, ritorna una risposta di errore
@@ -121,12 +123,12 @@ public class CreativeSeeksBusinessController {
         ProfileCreative profileCreative = profileCreativeRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("ProfileCreative not found"));
 
-        // Prepara JobSearchLocationCards
-        Set<JobSearchLocationCard> jobSearchLocationCards = new HashSet<>();
-        if (creativeSeeksBusinessDTO.getJobSearchLocationCards() != null) {
-            for (JobSearchLocationCardDTO locationDTO : creativeSeeksBusinessDTO.getJobSearchLocationCards()) {
-                JobSearchLocationCard newLocation = convertToEntity(locationDTO);
-                jobSearchLocationCards.add(newLocation);
+        // Prepara CreativeSeeksBusinessLocation
+        Set<CreativeSeeksBusinessLocation> creativeSeeksBusinessLocations = new HashSet<>();
+        if (creativeSeeksBusinessDTO.getCreativeSeeksBusinessLocations() != null) {
+            for (CreativeSeeksBusinessLocationDTO locationDTO : creativeSeeksBusinessDTO.getCreativeSeeksBusinessLocations()) {
+                CreativeSeeksBusinessLocation newLocation = convertToEntity(locationDTO);
+                creativeSeeksBusinessLocations.add(newLocation);
             }
         }
 
@@ -144,10 +146,13 @@ public class CreativeSeeksBusinessController {
                 professionalRelationshipRepository.findById(Short.valueOf(creativeSeeksBusinessDTO.getProfessionalRelationship()))
                         .orElseThrow(() -> new EntityNotFoundException("ProfessionalRelationship not found")),
                 creativeSeeksBusinessDTO.getPositionDescription(),
-                typeOfBusinessRepository.findById(Short.valueOf(creativeSeeksBusinessDTO.getIdentifyBusinesType()))
+                typeOfBusinessRepository.findById(Short.valueOf(creativeSeeksBusinessDTO.getIdentifyBusinessType()))
                         .orElseThrow(() -> new EntityNotFoundException("TypeOfBusiness not found")),
-                jobSearchLocationCards
+                creativeSeeksBusinessLocations,
+                workPreferenceRepository.findById(Short.valueOf(creativeSeeksBusinessDTO.getWorkPreference()))
+                        .orElseThrow(() -> new EntityNotFoundException("WorkPreference not found"))
         );
+
         newCreativeSeeksBusiness.setProfileCreative(profileCreative);
 
         CreativeSeeksBusiness savedCreativeSeeksBusiness = creativeSeeksBusinessRepository.save(newCreativeSeeksBusiness);
@@ -192,8 +197,8 @@ public class CreativeSeeksBusinessController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("CreativeSeeksBusiness not found"));
     }
 
-    private JobSearchLocationCard convertToEntity(JobSearchLocationCardDTO dto) {
-        JobSearchLocationCard entity = new JobSearchLocationCard();
+    private CreativeSeeksBusinessLocation convertToEntity(CreativeSeeksBusinessLocationDTO dto) {
+        CreativeSeeksBusinessLocation entity = new CreativeSeeksBusinessLocation();
         entity.setCity(dto.getCity());
         entity.setProvince(dto.getProvince());
         entity.setLat(dto.getLat());

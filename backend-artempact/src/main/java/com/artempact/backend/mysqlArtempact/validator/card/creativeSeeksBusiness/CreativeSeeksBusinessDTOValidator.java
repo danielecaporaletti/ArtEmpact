@@ -2,6 +2,7 @@ package com.artempact.backend.mysqlArtempact.validator.card.creativeSeeksBusines
 
 import com.artempact.backend.mysqlArtempact.dto.card.businessSeeksCreative.BusinessSeeksCreativeDTO;
 import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.CreativeSeeksBusinessDTO;
+import com.artempact.backend.mysqlArtempact.entity.profile.LocationInterface;
 import com.artempact.backend.mysqlArtempact.repository.lookupRepository.EducationTypeRepository;
 import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ExperienceLevelRepository;
 import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ProfessionalRelationshipRepository;
@@ -41,7 +42,8 @@ public class CreativeSeeksBusinessDTOValidator extends CommonValidator {
         // Validate maxProjectBudget
         validatePositiveField(dto.getMaxProjectBudget(), "maxProjectBudget", errors);
         // Validate description
-        validateRGBField(dto.getCardColor(), "cardColor", 7, 7, errors, "^#[0-9A-Fa-f]{6}$", "Format: #RRGGBB");
+        validateShortField(dto.getCardColor(), "cardColor", (short) 0, (short) 99, errors);
+//        validateRGBField(dto.getCardColor(), "cardColor", 7, 7, errors, "^#[0-9A-Fa-f]{6}$", "Format: #RRGGBB");
         // Validate educationalBackground
         validateShortKeyField(dto.getEducationalBackground(), "educationalBackground", educationTypeRepository.findAllIds(), errors);
         // Validate experienceLevel
@@ -49,10 +51,12 @@ public class CreativeSeeksBusinessDTOValidator extends CommonValidator {
         // Validate professionalRelationship
         validateShortKeyField(dto.getProfessionalRelationship(), "professionalRelationship", professionalRelationshipRepository.findAllIds(), errors);
         // Validate positionDescription
-        validateStringField(dto.getPositionDescription(), "personalVisionMission", 280, errors, null);
+        validateStringField(dto.getPositionDescription(), "positionDescription", 280, errors, null);
         // Validate identifyCreativeType
-        validateShortKeyField(dto.getIdentifyBusinesType(), "identifyBusinesType", typeOfBusinessRepository.findAllIds(), errors);
-        // Validate jobSearchLocationCards
-        validateSetLocation(dto.getJobSearchLocationCards(), errors, "jobSearchLocationCards");
+        validateShortKeyField(dto.getIdentifyBusinessType(), "identifyBusinessType", typeOfBusinessRepository.findAllIds(), errors);
+        // Validate creativeSeeksBusinessLocations
+        for (LocationInterface location: dto.getCreativeSeeksBusinessLocations()) {
+            validateLocality(location, errors);
+        }
     }
 }

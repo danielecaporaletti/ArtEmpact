@@ -2,6 +2,7 @@ package com.artempact.backend.mysqlArtempact.validator.card.creativeSeeksCollabo
 
 import com.artempact.backend.mysqlArtempact.dto.card.businessSeeksCreative.BusinessSeeksCreativeDTO;
 import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksCollaboration.CreativeSeeksCollaborationDTO;
+import com.artempact.backend.mysqlArtempact.entity.profile.LocationInterface;
 import com.artempact.backend.mysqlArtempact.repository.lookupRepository.EducationTypeRepository;
 import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ExperienceLevelRepository;
 import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ProfessionalRelationshipRepository;
@@ -41,7 +42,8 @@ public class CreativeSeeksCollaborationDTOValidator extends CommonValidator {
         // Validate maxProjectBudget
         validatePositiveField(dto.getMaxProjectBudget(), "maxProjectBudget", errors);
         // Validate description
-        validateRGBField(dto.getCardColor(), "cardColor", 7, 7, errors, "^#[0-9A-Fa-f]{6}$", "Format: #RRGGBB");
+        validateShortField(dto.getCardColor(), "cardColor", (short) 0, (short) 99, errors);
+//        validateRGBField(dto.getCardColor(), "cardColor", 7, 7, errors, "^#[0-9A-Fa-f]{6}$", "Format: #RRGGBB");
         // Validate educationalBackground
         validateShortKeyField(dto.getEducationalBackground(), "educationalBackground", educationTypeRepository.findAllIds(), errors);
         // Validate experienceLevel
@@ -52,8 +54,9 @@ public class CreativeSeeksCollaborationDTOValidator extends CommonValidator {
         validateStringField(dto.getPersonalVisionMission(), "personalVisionMission", 280, errors, null);
         // Validate identifyCreativeType
         validateShortKeyField(dto.getIdentifyCreativeType(), "identifyCreativeType", typeOfCreativeRepository.findAllIds(), errors);
-        // Validate locationSelection
-        validateLocality(dto.getLocality(), errors);
-
+        // Validate creativeSeeksCollaborationLocations
+        for (LocationInterface location : dto.getCreativeSeeksCollaborationLocations()) {
+            validateLocality(location, errors);
+        }
     }
 }

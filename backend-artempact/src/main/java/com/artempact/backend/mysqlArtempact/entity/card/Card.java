@@ -3,6 +3,7 @@ package com.artempact.backend.mysqlArtempact.entity.card;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.EducationType;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ExperienceLevel;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ProfessionalRelationship;
+import com.artempact.backend.mysqlArtempact.entity.lookupEntity.WorkPreference;
 import com.artempact.backend.mysqlArtempact.entity.profile.Profile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -27,11 +28,7 @@ public abstract class Card {
     @Size(max = 55, message = "The title exceeds 55 characters")
     @Column(name = "title", nullable = false, length = 55)
     private String title;
-    /*
-    @Size(max = 1000, message = "The video link exceeds 1000 characters")
-    @Column(name = "video", length = 1000)
-    private String video;
-     */
+
     @NotBlank(message = "The description cannot be empty")
     @Size(max = 280, message = "The description exceeds 280 characters")
     @Column(name = "description", nullable = false, length = 280)
@@ -48,10 +45,17 @@ public abstract class Card {
     private Integer maxProjectBudget;
 
     @NotBlank(message = "The cardColor cannot be empty")
+    @Size(max = 2, message = "The cardColor exceeds 2 characters")
+    @Column(name = "cardColor", nullable = false, length = 2)
+    private String cardColor;
+
+    /*
+    @NotBlank(message = "The cardColor cannot be empty")
     @Size(min = 7, max = 7, message = "The cardColor HEX must be (#RRGGBB)")
     @Pattern(regexp = "^#[0-9A-Fa-f]{6}$", message = "Invalid HEX color format (#RRGGBB)")
     @Column(name = "cardColor", nullable = false, length = 7)
     private String cardColor;
+     */
 
     //`@ManyToOne` indica che molte `card` possono essere associati a un singolo `EducationType`
     @ManyToOne(fetch = FetchType.EAGER)
@@ -68,7 +72,16 @@ public abstract class Card {
     @JoinColumn(name = "professionalRelationship_id", referencedColumnName = "id")
     private ProfessionalRelationship professionalRelationship;
 
-    public Card(String title, String description, Integer minProjectBudget, Integer maxProjectBudget, String cardColor, EducationType educationalBackground, ExperienceLevel experienceLevel, ProfessionalRelationship professionalRelationship) {
+    //`@ManyToOne` indica che molti `card` possono essere associati a un singolo `WorkPreference`
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "workPreference_id", referencedColumnName = "id")
+    private WorkPreference workPreference;
+
+    @Size(max = 280, message = "The video link exceeds 280 characters")
+    @Column(name = "video1", length = 280)
+    private String video1;
+
+    public Card(String title, String description, Integer minProjectBudget, Integer maxProjectBudget, String cardColor, EducationType educationalBackground, ExperienceLevel experienceLevel, ProfessionalRelationship professionalRelationship, WorkPreference workPreference) {
         this.title = title;
         this.description = description;
         this.minProjectBudget = minProjectBudget;
@@ -77,5 +90,6 @@ public abstract class Card {
         this.educationalBackground = educationalBackground;
         this.experienceLevel = experienceLevel;
         this.professionalRelationship = professionalRelationship;
+        this.workPreference = workPreference;
     }
 }

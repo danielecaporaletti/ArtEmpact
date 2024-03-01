@@ -1,7 +1,12 @@
 package com.artempact.backend.mysqlArtempact.controller.card.creativeSeeksCollaboration;
 
+import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocationDTO;
 import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksCollaboration.CreativeSeeksCollaborationDTO;
+import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksCollaboration.junctiontable.CreativeSeeksCollaborationLocationDTO;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.CreativeSeeksBusiness;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocation;
 import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.CreativeSeeksCollaboration;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.junctionTable.CreativeSeeksCollaborationLocation;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.EducationType;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ExperienceLevel;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ProfessionalRelationship;
@@ -24,6 +29,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CreativeSeeksCollaborationControllerService {
@@ -115,13 +121,31 @@ public class CreativeSeeksCollaborationControllerService {
                     .orElseThrow(() -> new EntityNotFoundException("typeOfCreative not found"));
             existingCreativeSeeksCollaboration.setIdentifyCreativeType(typeOfCreative);
         }
-        if (creativeSeeksCollaborationDTO.getLocality() != null) {
-            existingCreativeSeeksCollaboration.getLocality().setCity(creativeSeeksCollaborationDTO.getLocality().getCity().trim());
-            existingCreativeSeeksCollaboration.getLocality().setProvince(creativeSeeksCollaborationDTO.getLocality().getProvince().trim());
-            existingCreativeSeeksCollaboration.getLocality().setLat(creativeSeeksCollaborationDTO.getLocality().getLat());
-            existingCreativeSeeksCollaboration.getLocality().setLon(creativeSeeksCollaborationDTO.getLocality().getLon());
-        }
+        if (creativeSeeksCollaborationDTO.getCreativeSeeksCollaborationLocations() != null) {
+            Set<CreativeSeeksCollaborationLocation> currentLocations = existingCreativeSeeksCollaboration.getCreativeSeeksCollaborationLocations();
 
+            for (CreativeSeeksCollaborationLocationDTO locationDTO : creativeSeeksCollaborationDTO.getCreativeSeeksCollaborationLocations()) {
+                // Controlla se la location esiste già
+                boolean locationExists = currentLocations.stream()
+                        .anyMatch(loc -> loc.getCity().equals(locationDTO.getCity()) && loc.getProvince().equals(locationDTO.getProvince()));
+
+                // Se non esiste, aggiungila
+                if (!locationExists) {
+                    CreativeSeeksCollaborationLocation newLocation = convertToEntity(locationDTO, existingCreativeSeeksCollaboration);
+                    currentLocations.add(newLocation);
+                }
+            }
+        }
         return creativeSeeksCollaborationRepository.save(existingCreativeSeeksCollaboration);
+    }
+
+    private CreativeSeeksCollaborationLocation convertToEntity(CreativeSeeksCollaborationLocationDTO dto, CreativeSeeksCollaboration creativeSeeksCollaboration) {
+        CreativeSeeksCollaborationLocation entity = new CreativeSeeksCollaborationLocation();
+        entity.setCity(dto.getCity());
+        entity.setProvince(dto.getProvince());
+        entity.setLat(dto.getLat());
+        entity.setLon(dto.getLon());
+        entity.setCreativeSeeksCollaboration(creativeSeeksCollaboration);
+        return entity;
     }
 }

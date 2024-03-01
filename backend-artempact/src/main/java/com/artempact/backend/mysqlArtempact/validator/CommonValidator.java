@@ -1,6 +1,5 @@
 package com.artempact.backend.mysqlArtempact.validator;
 
-import com.artempact.backend.mysqlArtempact.dto.profile.ProfileDTO;
 import com.artempact.backend.mysqlArtempact.entity.profile.LocationInterface;
 import com.artempact.backend.mysqlGeographic.reposity.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,17 @@ public abstract class CommonValidator implements Validator {
 
     @Autowired
     protected ComuneRepository comuneRepository;
+
+    protected void validateWrongField(String value, String fieldName, Errors errors) {
+        if (value != null) {
+            value = value.trim();
+            if (value.isEmpty()) {
+                errors.rejectValue(fieldName, fieldName + ".empty", "The " + fieldName + " must not be empty.");
+            } else {
+                errors.rejectValue(fieldName, fieldName + ".error", "The " + fieldName + " cannot modify in this way ");
+            }
+        }
+    }
 
     protected void validateStringField(String value, String fieldName, int maxLength, Errors errors, String regex) {
         if (value != null) {

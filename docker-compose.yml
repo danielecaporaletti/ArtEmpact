@@ -41,6 +41,7 @@ services:
     ports:
       - "8081:8081"
     environment:
+      - PROFILE=prod
       - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_REALM=artempact
       - KEYCLOAK_CLIENT_ID=client-api
@@ -55,6 +56,27 @@ services:
       mysql-artempact:
         condition: service_healthy
       mysql-geographic:
+        condition: service_healthy
+    networks:
+      - artempact-network
+
+  microservice-s3:
+    build:
+      context: ./microserviceS3
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - PROFILE=prod
+      - BUCKET_NAME=artempact2400
+      - ACCESS_KEY=AKIAVRUVTH5RAKHWG37Z
+      - SECRET_KEY=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
+      - AWS_REGION=us-west-1
+      - DATABASE_ARTEMPACT_USERNAME=root
+      - DATABASE_ARTEMPACT_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
+      - DATABASE_ARTEMPACT_URL=jdbc:mysql://mysql-artempact:3306/artempact
+    depends_on:
+      mysql-artempact:
         condition: service_healthy
     networks:
       - artempact-network

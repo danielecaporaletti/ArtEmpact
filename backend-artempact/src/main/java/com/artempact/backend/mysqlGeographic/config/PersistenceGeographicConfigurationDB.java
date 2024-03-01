@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@PropertySource({"classpath:persistence-multiple-db.properties"})
 @EnableJpaRepositories(
         basePackages = "com.artempact.backend.mysqlGeographic",
         entityManagerFactoryRef = "italiaEntityManager",
@@ -28,20 +27,15 @@ public class PersistenceGeographicConfigurationDB {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean italiaEntityManager() {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(italiaDataSource());
-        em.setPackagesToScan(
-                new String[]{"com.artempact.backend.mysqlGeographic.entity"});
+        em.setPackagesToScan("com.artempact.backend.mysqlGeographic.entity");
 
-        HibernateJpaVendorAdapter vendorAdapter
-                = new HibernateJpaVendorAdapter();
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("geographic.hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.dialect",
-                env.getProperty("geographic.hibernate.dialect"));
+        properties.put("hibernate.hbm2ddl.auto", env.getProperty("geographic.hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.dialect", env.getProperty("geographic.hibernate.dialect"));
         em.setJpaPropertyMap(properties);
 
         return em;
@@ -49,11 +43,8 @@ public class PersistenceGeographicConfigurationDB {
 
     @Bean
     public DataSource italiaDataSource() {
-
-        DriverManagerDataSource dataSource
-                = new DriverManagerDataSource();
-        dataSource.setDriverClassName(
-                env.getProperty("jdbc.driverClassName"));
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
         dataSource.setUrl(env.getProperty("italia.jdbc.url"));
         dataSource.setUsername(env.getProperty("geographic.jdbc.user"));
         dataSource.setPassword(env.getProperty("geographic.jdbc.pass"));
@@ -63,12 +54,10 @@ public class PersistenceGeographicConfigurationDB {
 
     @Bean
     public PlatformTransactionManager italiaTransactionManager() {
-
-        JpaTransactionManager transactionManager
-                = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(
-                italiaEntityManager().getObject());
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(italiaEntityManager().getObject());
         return transactionManager;
     }
 }
+
 

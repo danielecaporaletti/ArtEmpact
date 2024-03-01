@@ -1,6 +1,7 @@
 package com.artempact.backend.mysqlArtempact.entity.lookupEntity;
 
 import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.CreativeSeeksBusiness;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.CreativeSeeksCollaboration;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileBusiness.ProfileBusiness;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -38,6 +39,7 @@ public class TypeOfBusiness {
     private Set<ProfileBusiness> profileBusiness;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "identifyBusinesType")
+    @OneToMany(mappedBy = "identifyBusinessType")
     private Set<CreativeSeeksBusiness> creativeSeeksBusinesses;
+
 }

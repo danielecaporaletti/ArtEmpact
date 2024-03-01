@@ -2,16 +2,10 @@ package com.artempact.backend.mysqlArtempact.controller.card.businessSeeksCreati
 
 import com.artempact.backend.mysqlArtempact.dto.card.businessSeeksCreative.BusinessSeeksCreativeDTO;
 import com.artempact.backend.mysqlArtempact.entity.card.businessSeeksCreative.BusinessSeeksCreative;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.EducationType;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ExperienceLevel;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ProfessionalRelationship;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.TypeOfCreative;
+import com.artempact.backend.mysqlArtempact.entity.lookupEntity.*;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileBusiness.ProfileBusiness;
 import com.artempact.backend.mysqlArtempact.repository.card.businessSeeksCreative.BusinessSeeksCreativeRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.EducationTypeRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ExperienceLevelRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ProfessionalRelationshipRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.TypeOfCreativeRepository;
+import com.artempact.backend.mysqlArtempact.repository.lookupRepository.*;
 import com.artempact.backend.mysqlArtempact.repository.profile.profileBusiness.ProfileBusinessRepository;
 import com.artempact.backend.mysqlArtempact.validator.card.BusinessSeeksCreative.BusinessSeeksCreativeDTOValidator;
 import jakarta.persistence.EntityNotFoundException;
@@ -42,6 +36,8 @@ public class BusinessSeeksCreativeControllerService {
     private ProfessionalRelationshipRepository professionalRelationshipRepository;
     @Autowired
     private TypeOfCreativeRepository typeOfCreativeRepository;
+    @Autowired
+    private WorkPreferenceRepository workPreferenceRepository;
 
     @Transactional
     public BusinessSeeksCreative updateBusinessSeeksCreativeWithPatch(JwtAuthenticationToken auth, Long businessSeeksCreativeId, BusinessSeeksCreativeDTO businessSeeksCreativeDTO, BindingResult bindingResult) {
@@ -115,11 +111,10 @@ public class BusinessSeeksCreativeControllerService {
                     .orElseThrow(() -> new EntityNotFoundException("TypeOfBusiness not found"));
             existingBusinessSeeksCreative.setIdentifyCreativeType(typeOfCreative);
         }
-        if (businessSeeksCreativeDTO.getLocality() != null) {
-            existingBusinessSeeksCreative.getLocality().setCity(businessSeeksCreativeDTO.getLocality().getCity().trim());
-            existingBusinessSeeksCreative.getLocality().setProvince(businessSeeksCreativeDTO.getLocality().getProvince().trim());
-            existingBusinessSeeksCreative.getLocality().setLat(businessSeeksCreativeDTO.getLocality().getLat());
-            existingBusinessSeeksCreative.getLocality().setLon(businessSeeksCreativeDTO.getLocality().getLon());
+        if (businessSeeksCreativeDTO.getWorkPreference() != null) {
+            WorkPreference workPreference = workPreferenceRepository.findById(Short.valueOf(businessSeeksCreativeDTO.getWorkPreference()))
+                    .orElseThrow(() -> new EntityNotFoundException("WorkPreference not found"));
+            existingBusinessSeeksCreative.setWorkPreference(workPreference);
         }
 
         return businessSeeksCreativeRepository.save(existingBusinessSeeksCreative);

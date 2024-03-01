@@ -34,8 +34,6 @@ public class ProfileBusinessControllerService {
     @Autowired
     private ProfileBusinessDTOValidator profileBusinessDTOValidator;
 
-    // ATTENZIONE BISOGNA AGGIUNGERE LE FOTO CHE SONO BELLE COMPLESSE.
-    // LA LOGICA CHE CI STA DIETRO E'CHE IL FRONT INVIA UN DATO BLOB E IL BACK RITORNA L'IDENTIFICATORE E IL LINK.
     @Transactional
     public ProfileBusiness updateProfileBusinessWithPatch(JwtAuthenticationToken auth, ProfileBusinessDTO profileBusinessDTO, BindingResult bindingResult) {
         String id = auth.getToken().getClaimAsString(StandardClaimNames.SUB);

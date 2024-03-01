@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JobSearchLocationCardDTO implements LocationInterface {
+public class CreativeSeeksBusinessLocationDTO implements LocationInterface {
     private String city;
     private String province;
     private Double lat;

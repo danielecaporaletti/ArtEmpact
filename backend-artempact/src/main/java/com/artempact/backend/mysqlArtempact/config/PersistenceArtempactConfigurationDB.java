@@ -17,7 +17,6 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@PropertySource({ "classpath:persistence-multiple-db.properties" })
 @EnableJpaRepositories(
         basePackages = "com.artempact.backend.mysqlArtempact",
         entityManagerFactoryRef = "artempactEntityManager",
@@ -30,19 +29,15 @@ public class PersistenceArtempactConfigurationDB {
     @Bean
     @Primary
     public LocalContainerEntityManagerFactoryBean artempactEntityManager() {
-        LocalContainerEntityManagerFactoryBean em
-                = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(artempactDataSource());
-        em.setPackagesToScan(
-                new String[] { "com.artempact.backend.mysqlArtempact.entity" });
+        em.setPackagesToScan("com.artempact.backend.mysqlArtempact.entity");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("artempact.hibernate.hbm2ddl.auto"));
-        properties.put("hibernate.dialect",
-                env.getProperty("artempact.hibernate.dialect"));
+        properties.put("hibernate.hbm2ddl.auto", env.getProperty("artempact.hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.dialect", env.getProperty("artempact.hibernate.dialect"));
         em.setJpaPropertyMap(properties);
 
         return em;
@@ -51,11 +46,8 @@ public class PersistenceArtempactConfigurationDB {
     @Bean
     @Primary
     public DataSource artempactDataSource() {
-
-        DriverManagerDataSource dataSource
-                = new DriverManagerDataSource();
-        dataSource.setDriverClassName(
-                env.getProperty("jdbc.driverClassName"));
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
         dataSource.setUrl(env.getProperty("artempact.jdbc.url"));
         dataSource.setUsername(env.getProperty("artempact.jdbc.user"));
         dataSource.setPassword(env.getProperty("artempact.jdbc.pass"));
@@ -66,12 +58,10 @@ public class PersistenceArtempactConfigurationDB {
     @Bean
     @Primary
     public PlatformTransactionManager artempactTransactionManager() {
-
-        JpaTransactionManager transactionManager
-                = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(
-                artempactEntityManager().getObject());
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(artempactEntityManager().getObject());
         return transactionManager;
     }
 }
+
 

@@ -36,4 +36,12 @@ public abstract class ProfileDTO {
     private String description;
     private String maxDistance;
     private String profileCompletionPercentage;
+
+    private String photo1;
+    private String photo2;
+    private String photo3;
+    private String photoPremium1;
+    private String photoPremium2;
+
+    private String document1;
 }

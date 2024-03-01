@@ -79,10 +79,11 @@ public class ProjectSecurityConfig {
                                         "/profile/creative/creativeSeeksCollaboration/{creativeSeeksCollaborationId}", // PATCH, DELETE
                                         "/profile/creative/creativeSeeksBusiness", // GET, POST
                                         "/profile/creative/creativeSeeksBusiness/{creativeSeeksBusinessId}", // PATCH, DELETE
-                                        "/profile/creative/creativeSeeksBusiness/jobSearchLocationCard/{jobSearchLocationCardId}" // DELETE
+                                        "/profile/creative/creativeSeeksBusiness/locationCard/{creativeSeeksBusinessLocationCardId}", // DELETE
+                                        "/profile/creative/creativeSeeksCollaboration/locationCard/{creativeSeeksCollaborationLocationCardId}" // DELETE
 
                                 ).authenticated()
-                                .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen").permitAll()
+                                .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen", "/userAttributes").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer

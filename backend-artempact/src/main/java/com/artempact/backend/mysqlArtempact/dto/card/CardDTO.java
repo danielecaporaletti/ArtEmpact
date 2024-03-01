@@ -13,8 +13,6 @@ import lombok.Setter;
 @MappedSuperclass
 public abstract class CardDTO {
     private String title;
-    // DA FARE
-    // private String video;
     private String description;
     private String minProjectBudget;
     private String maxProjectBudget;
@@ -22,4 +20,6 @@ public abstract class CardDTO {
     private String educationalBackground;
     private String experienceLevel;
     private String professionalRelationship;
+    private String workPreference;
+    private String video1;
 }

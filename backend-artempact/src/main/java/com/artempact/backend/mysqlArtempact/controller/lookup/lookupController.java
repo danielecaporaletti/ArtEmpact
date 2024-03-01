@@ -5,14 +5,16 @@ import com.artempact.backend.mysqlArtempact.repository.lookupRepository.inline.*
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 @RestController
 public class lookupController {
 
     private final EducationTypeRepository educationTypeRepository;
     private final TypeOfCreativeRepository typeOfCreativeRepository;
-    private TypeOfBusinessRepository typeOfBusinessRepository;
+    private final TypeOfBusinessRepository typeOfBusinessRepository;
     private final WorkPreferenceRepository workPreferenceRepository;
     private final ExperienceLevelRepository experienceLevelRepository;
     private final ProfessionalRelationshipRepository professionalRelationshipRepository;
@@ -24,6 +26,13 @@ public class lookupController {
         this.workPreferenceRepository = workPreferenceRepository;
         this.experienceLevelRepository = experienceLevelRepository;
         this.professionalRelationshipRepository = professionalRelationshipRepository;
+    }
+
+    @GetMapping("/version")
+    public String getVersionBackend() throws IOException {
+        Properties properties = new Properties();
+        properties.load(getClass().getResourceAsStream("/version.properties"));
+        return properties.getProperty("version");
     }
 
     @GetMapping("/educationType")

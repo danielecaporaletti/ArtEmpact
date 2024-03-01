@@ -1,9 +1,9 @@
 package com.artempact.backend.mysqlArtempact.controller.card.creativeSeeksBusiness;
 
 import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.CreativeSeeksBusinessDTO;
-import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.junctionTable.JobSearchLocationCardDTO;
+import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocationDTO;
 import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.CreativeSeeksBusiness;
-import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.JobSearchLocationCard;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocation;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.EducationType;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ExperienceLevel;
 import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ProfessionalRelationship;
@@ -120,22 +120,22 @@ public class CreativeSeeksBusinessControllerService {
         if (creativeSeeksBusinessDTO.getPositionDescription() != null) {
             existingCreativeSeeksBusiness.setPositionDescription(creativeSeeksBusinessDTO.getPositionDescription().trim());
         }
-        if (creativeSeeksBusinessDTO.getIdentifyBusinesType() != null) {
-            TypeOfBusiness typeOfBusiness = typeOfBusinessRepository.findById(Short.valueOf(creativeSeeksBusinessDTO.getIdentifyBusinesType()))
+        if (creativeSeeksBusinessDTO.getIdentifyBusinessType() != null) {
+            TypeOfBusiness typeOfBusiness = typeOfBusinessRepository.findById(Short.valueOf(creativeSeeksBusinessDTO.getIdentifyBusinessType()))
                     .orElseThrow(() -> new EntityNotFoundException("TypeOfBusiness not found"));
-            existingCreativeSeeksBusiness.setIdentifyBusinesType(typeOfBusiness);
+            existingCreativeSeeksBusiness.setIdentifyBusinessType(typeOfBusiness);
         }
-        if (creativeSeeksBusinessDTO.getJobSearchLocationCards() != null) {
-            Set<JobSearchLocationCard> currentLocations = existingCreativeSeeksBusiness.getJobSearchLocationCards();
+        if (creativeSeeksBusinessDTO.getCreativeSeeksBusinessLocations() != null) {
+            Set<CreativeSeeksBusinessLocation> currentLocations = existingCreativeSeeksBusiness.getCreativeSeeksBusinessLocations();
 
-            for (JobSearchLocationCardDTO locationDTO : creativeSeeksBusinessDTO.getJobSearchLocationCards()) {
+            for (CreativeSeeksBusinessLocationDTO locationDTO : creativeSeeksBusinessDTO.getCreativeSeeksBusinessLocations()) {
                 // Controlla se la location esiste già
                 boolean locationExists = currentLocations.stream()
                         .anyMatch(loc -> loc.getCity().equals(locationDTO.getCity()) && loc.getProvince().equals(locationDTO.getProvince()));
 
                 // Se non esiste, aggiungila
                 if (!locationExists) {
-                    JobSearchLocationCard newLocation = convertToEntity(locationDTO, existingCreativeSeeksBusiness);
+                    CreativeSeeksBusinessLocation newLocation = convertToEntity(locationDTO, existingCreativeSeeksBusiness);
                     currentLocations.add(newLocation);
                 }
             }
@@ -143,8 +143,8 @@ public class CreativeSeeksBusinessControllerService {
         return creativeSeeksBusinessRepository.save(existingCreativeSeeksBusiness);
     }
 
-    private JobSearchLocationCard convertToEntity(JobSearchLocationCardDTO dto, CreativeSeeksBusiness creativeSeeksBusiness) {
-        JobSearchLocationCard entity = new JobSearchLocationCard();
+    private CreativeSeeksBusinessLocation convertToEntity(CreativeSeeksBusinessLocationDTO dto, CreativeSeeksBusiness creativeSeeksBusiness) {
+        CreativeSeeksBusinessLocation entity = new CreativeSeeksBusinessLocation();
         entity.setCity(dto.getCity());
         entity.setProvince(dto.getProvince());
         entity.setLat(dto.getLat());

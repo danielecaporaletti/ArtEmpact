@@ -50,6 +50,12 @@ public class ProfileBusinessDTOValidator extends CommonValidator {
         // Validate workPreference
         validateShortKeyField(dto.getWorkPreference(), "workPreference", workPreferenceRepository.findAllIds(), errors);
         // Validate photosBusiness
+        validateWrongField(dto.getPhoto1(), "photo1", errors);
+        validateWrongField(dto.getPhoto2(), "photo2", errors);
+        validateWrongField(dto.getPhoto3(), "photo3", errors);
+        validateWrongField(dto.getPhotoPremium1(), "photoPremium1", errors);
+        validateWrongField(dto.getPhotoPremium2(), "photoPremium2", errors);
+        validateWrongField(dto.getDocument1(), "document1", errors);
         // Validate creativeSearchLocations
         validateSetLocation(dto.getCreativeSearchLocations(), errors, "creativeSearchLocations");
     }

@@ -4,10 +4,7 @@ import com.artempact.backend.mysqlArtempact.dto.card.businessSeeksCreative.Busin
 import com.artempact.backend.mysqlArtempact.entity.card.businessSeeksCreative.BusinessSeeksCreative;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileBusiness.ProfileBusiness;
 import com.artempact.backend.mysqlArtempact.repository.card.businessSeeksCreative.BusinessSeeksCreativeRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.EducationTypeRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ExperienceLevelRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ProfessionalRelationshipRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.TypeOfCreativeRepository;
+import com.artempact.backend.mysqlArtempact.repository.lookupRepository.*;
 import com.artempact.backend.mysqlArtempact.repository.profile.profileBusiness.ProfileBusinessRepository;
 import com.artempact.backend.mysqlArtempact.validator.card.BusinessSeeksCreative.BusinessSeeksCreativeDTOValidator;
 import jakarta.persistence.EntityNotFoundException;
@@ -41,6 +38,8 @@ public class BusinessSeeksCreativeController {
     private TypeOfCreativeRepository typeOfCreativeRepository;
     @Autowired
     private BusinessSeeksCreativeControllerService businessSeeksCreativeControllerService;
+    @Autowired
+    private WorkPreferenceRepository workPreferenceRepository;
 
     @GetMapping
     public ResponseEntity<?> getBusinessSeeksCreative(JwtAuthenticationToken auth) {
@@ -88,8 +87,8 @@ public class BusinessSeeksCreativeController {
         if (businessSeeksCreativeDTO.getIdentifyCreativeType() == null || businessSeeksCreativeDTO.getIdentifyCreativeType().isEmpty()) {
             bindingResult.rejectValue("identifyCreativeType", "field.required.identifyCreativeType", "IdentifyCreativeType is required.");
         }
-        if (businessSeeksCreativeDTO.getLocality() == null) {
-            bindingResult.rejectValue("locality", "field.required.locality", "Locality is required.");
+        if (businessSeeksCreativeDTO.getWorkPreference() == null) {
+            bindingResult.rejectValue("workPreference", "field.required.workPreference", "WorkPreference is required.");
         }
 
         // Se ci sono errori nei campi obbligatori, ritorna una risposta di errore
@@ -132,12 +131,8 @@ public class BusinessSeeksCreativeController {
                 businessSeeksCreativeDTO.getCompanyVisionMission(),
                 typeOfCreativeRepository.findById(Short.valueOf(businessSeeksCreativeDTO.getIdentifyCreativeType()))
                         .orElseThrow(() -> new EntityNotFoundException("TypeOfCreative not found")),
-                new BusinessSeeksCreative.Locality(
-                businessSeeksCreativeDTO.getLocality().getCity(),
-                businessSeeksCreativeDTO.getLocality().getProvince(),
-                businessSeeksCreativeDTO.getLocality().getLat(),
-                businessSeeksCreativeDTO.getLocality().getLon()
-        )
+                workPreferenceRepository.findById(Short.valueOf(businessSeeksCreativeDTO.getWorkPreference()))
+                        .orElseThrow(() -> new EntityNotFoundException("WorkPreference not found"))
         );
         newBusinessSeeksCreative.setProfileBusiness(profileBusiness);
 

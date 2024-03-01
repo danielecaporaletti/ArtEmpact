@@ -32,6 +32,9 @@ public class GetUserAttributes {
         final var ADDRESS = auth.getToken().getClaimAsString(StandardClaimNames.ADDRESS);
         final var city = auth.getToken().getClaimAsString("city");
         final var phoneNumber = auth.getToken().getClaimAsString("phoneNumber");
+        final var user_type = auth.getToken().getClaimAsString("user_type");
+        final var province = auth.getToken().getClaimAsString("province");
+
 
         System.out.println("ID" + preferredUsername);
         System.out.println("EMAIL" + subject);
@@ -49,9 +52,11 @@ public class GetUserAttributes {
         System.out.println("NICKNAME" + NICKNAME);
         System.out.println("PHONE_NUMBER" + PHONE_NUMBER);
         System.out.println("PHONE_NUMBER_VERIFIED" + PHONE_NUMBER_VERIFIED);
-        System.out.println("city" + city);
-        System.out.println("phone_number" + phoneNumber);
+        System.out.println("city: " + city);
+        System.out.println("phone_number: " + phoneNumber);
         System.out.println("ADDRESS: " + ADDRESS);
+        System.out.println("user_type: " + user_type);
+        System.out.println("province: " + province);
 
         return new ResponseEntity(HttpStatus.OK);
     }

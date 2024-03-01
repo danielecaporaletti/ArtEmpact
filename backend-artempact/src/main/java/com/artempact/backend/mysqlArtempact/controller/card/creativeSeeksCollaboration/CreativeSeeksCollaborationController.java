@@ -1,13 +1,14 @@
 package com.artempact.backend.mysqlArtempact.controller.card.creativeSeeksCollaboration;
 
+import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocationDTO;
 import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksCollaboration.CreativeSeeksCollaborationDTO;
+import com.artempact.backend.mysqlArtempact.dto.card.creativeSeeksCollaboration.junctiontable.CreativeSeeksCollaborationLocationDTO;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocation;
 import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.CreativeSeeksCollaboration;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.junctionTable.CreativeSeeksCollaborationLocation;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileCreative.ProfileCreative;
 import com.artempact.backend.mysqlArtempact.repository.card.creativeSeeksCollaboration.CreativeSeeksCollaborationRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.EducationTypeRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ExperienceLevelRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.ProfessionalRelationshipRepository;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.TypeOfCreativeRepository;
+import com.artempact.backend.mysqlArtempact.repository.lookupRepository.*;
 import com.artempact.backend.mysqlArtempact.repository.profile.profileCreative.ProfileCreativeRepository;
 import com.artempact.backend.mysqlArtempact.validator.card.creativeSeeksCollaboration.CreativeSeeksCollaborationDTOValidator;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,6 +21,9 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/profile/creative/creativeSeeksCollaboration")
@@ -41,6 +45,8 @@ public class CreativeSeeksCollaborationController {
     private TypeOfCreativeRepository typeOfCreativeRepository;
     @Autowired
     private CreativeSeeksCollaborationControllerService creativeSeeksCollaborationControllerService;
+    @Autowired
+    private WorkPreferenceRepository workPreferenceRepository;
 
     @GetMapping
     public ResponseEntity<?> getCreativeSeeksCollaboration(JwtAuthenticationToken auth) {
@@ -88,8 +94,11 @@ public class CreativeSeeksCollaborationController {
         if (creativeSeeksCollaborationDTO.getIdentifyCreativeType() == null || creativeSeeksCollaborationDTO.getIdentifyCreativeType().isEmpty()) {
             bindingResult.rejectValue("identifyCreativeType", "field.required.identifyCreativeType", "IdentifyCreativeType is required.");
         }
-        if (creativeSeeksCollaborationDTO.getLocality() == null) {
-            bindingResult.rejectValue("locality", "field.required.locality", "Locality is required.");
+        if (creativeSeeksCollaborationDTO.getCreativeSeeksCollaborationLocations() == null) {
+            bindingResult.rejectValue("creativeSeeksCollaborationLocations", "field.required.creativeSeeksCollaborationLocations", "CreativeSeeksCollaborationLocations is required.");
+        }
+        if (creativeSeeksCollaborationDTO.getWorkPreference() == null) {
+            bindingResult.rejectValue("workPreference", "field.required.workPreference", "WorkPreference is required.");
         }
 
         // Se ci sono errori nei campi obbligatori, ritorna una risposta di errore
@@ -116,6 +125,15 @@ public class CreativeSeeksCollaborationController {
         ProfileCreative profileCreative = profileCreativeRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("ProfileCreative not found"));
 
+        // Prepara CreativeSeeksBusinessLocation
+        Set<CreativeSeeksCollaborationLocation> creativeSeeksCollaborationLocations = new HashSet<>();
+        if (creativeSeeksCollaborationDTO.getCreativeSeeksCollaborationLocations() != null) {
+            for (CreativeSeeksCollaborationLocationDTO locationDTO : creativeSeeksCollaborationDTO.getCreativeSeeksCollaborationLocations()) {
+                CreativeSeeksCollaborationLocation newLocation = convertToEntity(locationDTO);
+                creativeSeeksCollaborationLocations.add(newLocation);
+            }
+        }
+
         // Crea un nuovo CreativeSeeksCollaboration e lo collega al ProfileCreative
         CreativeSeeksCollaboration newCreativeSeeksCollaboration = new CreativeSeeksCollaboration(
                 creativeSeeksCollaborationDTO.getTitle(),
@@ -132,13 +150,11 @@ public class CreativeSeeksCollaborationController {
                 creativeSeeksCollaborationDTO.getPersonalVisionMission(),
                 typeOfCreativeRepository.findById(Short.valueOf(creativeSeeksCollaborationDTO.getIdentifyCreativeType()))
                         .orElseThrow(() -> new EntityNotFoundException("TypeOfCreative not found")),
-                new CreativeSeeksCollaboration.Locality(
-                        creativeSeeksCollaborationDTO.getLocality().getCity(),
-                        creativeSeeksCollaborationDTO.getLocality().getProvince(),
-                        creativeSeeksCollaborationDTO.getLocality().getLat(),
-                        creativeSeeksCollaborationDTO.getLocality().getLon()
-                )
+                creativeSeeksCollaborationLocations,
+                workPreferenceRepository.findById(Short.valueOf(creativeSeeksCollaborationDTO.getWorkPreference()))
+                        .orElseThrow(() -> new EntityNotFoundException("WorkPreference not found"))
         );
+
         newCreativeSeeksCollaboration.setProfileCreative(profileCreative);
 
         CreativeSeeksCollaboration savedCreativeSeeksCollaboration = creativeSeeksCollaborationRepository.save(newCreativeSeeksCollaboration);
@@ -181,6 +197,15 @@ public class CreativeSeeksCollaborationController {
                     }
                 })
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("CreativeSeeksCollaboration not found"));
+    }
+
+    private CreativeSeeksCollaborationLocation convertToEntity(CreativeSeeksCollaborationLocationDTO dto) {
+        CreativeSeeksCollaborationLocation entity = new CreativeSeeksCollaborationLocation();
+        entity.setCity(dto.getCity());
+        entity.setProvince(dto.getProvince());
+        entity.setLat(dto.getLat());
+        entity.setLon(dto.getLon());
+        return entity;
     }
 
 }

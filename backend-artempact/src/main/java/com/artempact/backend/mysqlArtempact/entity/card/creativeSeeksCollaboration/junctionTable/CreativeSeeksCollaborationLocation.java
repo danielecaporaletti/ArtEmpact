@@ -1,6 +1,6 @@
-package com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable;
+package com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.junctionTable;
 
-import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.CreativeSeeksBusiness;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.CreativeSeeksCollaboration;
 import com.artempact.backend.mysqlArtempact.entity.profile.LocationInterface;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -17,9 +17,8 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(schema = "artempact", name = "JobSearchLocationCard")
-public class JobSearchLocationCard implements LocationInterface {
-
+@Table(schema = "artempact", name = "CreativeSeeksCollaborationLocation")
+public class CreativeSeeksCollaborationLocation implements LocationInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
@@ -45,9 +44,9 @@ public class JobSearchLocationCard implements LocationInterface {
     @Column(name = "lon", nullable = false)
     private Double lon;
 
-    // `@ManyToOne` indica che molte `JobSearchLocationCard` possono essere associate a un singolo `CreativeSeeksBusiness`
+    // `@ManyToOne` indica che molte `CreativeSeeksCollaborationLocation` possono essere associate a un singolo `CreativeSeeksCollaboration`
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "creative_seek_business_id")
-    private CreativeSeeksBusiness creativeSeeksBusiness;
+    @JoinColumn(name = "creative_seek_collaboration_id")
+    private CreativeSeeksCollaboration creativeSeeksCollaboration;
 }

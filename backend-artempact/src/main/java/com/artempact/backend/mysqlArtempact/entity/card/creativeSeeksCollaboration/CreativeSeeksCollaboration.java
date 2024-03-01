@@ -2,10 +2,9 @@ package com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaborat
 
 import com.artempact.backend.mysqlArtempact.entity.card.Card;
 import com.artempact.backend.mysqlArtempact.entity.card.businessSeeksCreative.BusinessSeeksCreative;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.EducationType;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ExperienceLevel;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.ProfessionalRelationship;
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.TypeOfCreative;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocation;
+import com.artempact.backend.mysqlArtempact.entity.card.creativeSeeksCollaboration.junctionTable.CreativeSeeksCollaborationLocation;
+import com.artempact.backend.mysqlArtempact.entity.lookupEntity.*;
 import com.artempact.backend.mysqlArtempact.entity.profile.LocationInterface;
 import com.artempact.backend.mysqlArtempact.entity.profile.profileCreative.ProfileCreative;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,39 +17,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
 @Table(schema = "artempact", name = "CreativeSeeksCollaboration")
 public class CreativeSeeksCollaboration extends Card {
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    @Setter
-    @Embeddable
-    public static class Locality implements LocationInterface {
-        @NotBlank(message = "The city cannot be empty")
-        @Size(max = 100, message = "The city exceeds 100 characters")
-        @Column(name = "city", nullable = false, length = 100)
-        private String city;
-
-        @NotBlank(message = "The province cannot be empty")
-        @Size(max = 2, message = "The province exceeds 2 characters")
-        @Column(name = "province", nullable = false, length = 2)
-        private String province;
-
-        @JsonIgnore
-        @NotNull(message = "The latitude cannot be empty")
-        @Column(name = "lat", nullable = false)
-        private Double lat;
-
-        @JsonIgnore
-        @NotNull(message = "The longitude cannot be empty")
-        @Column(name = "lon", nullable = false)
-        private Double lon;
-    }
 
     @NotBlank(message = "The personalVisionMission cannot be empty")
     @Size(max = 280, message = "The personalVisionMission exceeds 280 characters")
@@ -62,8 +36,9 @@ public class CreativeSeeksCollaboration extends Card {
     @JoinColumn(name = "identifyCreativeType_id", referencedColumnName = "id")
     private TypeOfCreative identifyCreativeType;
 
-    @Embedded
-    private CreativeSeeksCollaboration.Locality locality;
+    // `@OneToMany` indica che un singolo `CreativeSeeksCollaboration` può essere associato a molte `CreativeSeeksCollaborationLocation`
+    @OneToMany(mappedBy = "creativeSeeksCollaboration", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CreativeSeeksCollaborationLocation> creativeSeeksCollaborationLocations;
 
     // `@ManyToOne` indica che molti `CreativeSeeksCollaboration` possono essere associate a un singolo `ProfileCreative`
     @JsonIgnore
@@ -71,10 +46,10 @@ public class CreativeSeeksCollaboration extends Card {
     @JoinColumn(name = "profile_creative_id")
     private ProfileCreative profileCreative;
 
-    public CreativeSeeksCollaboration(String title, String description, Integer setMinProjectBudget, Integer setMaxProjectBudget, String cardColor, EducationType educationalBackground, ExperienceLevel experienceLevel, ProfessionalRelationship professionalRelationship, String personalVisionMission, TypeOfCreative identifyCreativeType, CreativeSeeksCollaboration.Locality locality) {
-        super(title, description, setMinProjectBudget, setMaxProjectBudget, cardColor, educationalBackground, experienceLevel, professionalRelationship);
+    public CreativeSeeksCollaboration(String title, String description, Integer setMinProjectBudget, Integer setMaxProjectBudget, String cardColor, EducationType educationalBackground, ExperienceLevel experienceLevel, ProfessionalRelationship professionalRelationship, String personalVisionMission, TypeOfCreative identifyCreativeType, Set<CreativeSeeksCollaborationLocation> creativeSeeksCollaborationLocations, WorkPreference workPreference) {
+        super(title, description, setMinProjectBudget, setMaxProjectBudget, cardColor, educationalBackground, experienceLevel, professionalRelationship, workPreference);
         this.personalVisionMission = personalVisionMission;
         this.identifyCreativeType = identifyCreativeType;
-        this.locality = locality;
+        this.creativeSeeksCollaborationLocations = creativeSeeksCollaborationLocations;
     }
 }

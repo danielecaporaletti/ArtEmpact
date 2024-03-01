@@ -1,7 +1,7 @@
-package com.artempact.backend.mysqlArtempact.controller.card.creativeSeeksBusiness.jobSearchLocaltionCard;
+package com.artempact.backend.mysqlArtempact.controller.card.creativeSeeksBusiness.junctionTable;
 
 import com.artempact.backend.mysqlArtempact.entity.profile.profileCreative.ProfileCreative;
-import com.artempact.backend.mysqlArtempact.repository.card.creativeSeeksBusiness.junctionTable.JobSearchLocationCardRepository;
+import com.artempact.backend.mysqlArtempact.repository.card.creativeSeeksBusiness.junctionTable.CreativeSeeksBusinessLocationRepository;
 import com.artempact.backend.mysqlArtempact.repository.profile.profileCreative.ProfileCreativeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/profile/creative/creativeSeeksBusiness/jobSearchLocationCard")
-public class JobSearchLocationCardController {
+@RequestMapping("/profile/creative/creativeSeeksBusiness/locationCard")
+public class CreativeSeeksBusinessLocationController {
 
     @Autowired
     private ProfileCreativeRepository profileCreativeRepository;
     @Autowired
-    private JobSearchLocationCardRepository jobSearchLocationcardRepository;
+    private CreativeSeeksBusinessLocationRepository creativeSeeksBusinessLocationRepository;
 
-    @DeleteMapping("/{jobSearchLocationCardId}")
-    public ResponseEntity<?> deleteJobSearchLocationById(JwtAuthenticationToken auth, @PathVariable Long jobSearchLocationCardId) {
+    @DeleteMapping("/{creativeSeeksBusinessLocationCardId}")
+    public ResponseEntity<?> deleteCreativeSeeksBusinessLocationById(JwtAuthenticationToken auth, @PathVariable Long creativeSeeksBusinessLocationCardId) {
         final var userId = auth.getToken().getClaimAsString(StandardClaimNames.SUB);
 
         ProfileCreative profileCreative = profileCreativeRepository.findById(userId)
@@ -33,12 +33,12 @@ public class JobSearchLocationCardController {
         }
 
         // Trova la jobSearchLocationCardId basandosi sull'ID
-        return jobSearchLocationcardRepository.findById(jobSearchLocationCardId)
+        return creativeSeeksBusinessLocationRepository.findById(creativeSeeksBusinessLocationCardId)
                 .map(jobSearchLocationCard -> {
                     // Controlla se l'utente corrente è il proprietario della jobSearchLocationCardId
                     if (jobSearchLocationCard.getCreativeSeeksBusiness().getProfileCreative().getId().equals(userId)) {
                         // Elimina la jobSearchLocationCardId
-                        jobSearchLocationcardRepository.delete(jobSearchLocationCard);
+                        creativeSeeksBusinessLocationRepository.delete(jobSearchLocationCard);
                         return ResponseEntity.ok().build();
                     } else {
                         // L'utente non è il proprietario, quindi ritorna un errore

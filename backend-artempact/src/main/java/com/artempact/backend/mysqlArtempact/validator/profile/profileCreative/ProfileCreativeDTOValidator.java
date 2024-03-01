@@ -61,7 +61,13 @@ public class ProfileCreativeDTOValidator extends CommonValidator {
         validateShortField(dto.getFinalYearOfEducation(), "finalYearOfEducation", (short) 1000, (short) 9000, errors);
         // Validate workPreference
         validateShortKeyField(dto.getWorkPreference(), "workPreference", workPreferenceRepository.findAllIds(), errors);
-        // Validate photosCreative
+        // Validate S3 files
+        validateWrongField(dto.getPhoto1(), "photo1", errors);
+        validateWrongField(dto.getPhoto2(), "photo2", errors);
+        validateWrongField(dto.getPhoto3(), "photo3", errors);
+        validateWrongField(dto.getPhotoPremium1(), "photoPremium1", errors);
+        validateWrongField(dto.getPhotoPremium2(), "photoPremium2", errors);
+        validateWrongField(dto.getDocument1(), "document1", errors);
         // Validate jobSearchLocations
         validateSetLocation(dto.getJobSearchLocations(), errors, "jobSearchLocations");
     }

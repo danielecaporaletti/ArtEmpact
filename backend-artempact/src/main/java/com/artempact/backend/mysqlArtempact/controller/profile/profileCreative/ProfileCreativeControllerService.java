@@ -38,8 +38,6 @@ public class ProfileCreativeControllerService {
     @Autowired
     private ProfileCreativeDTOValidator profileCreativeDTOValidator;
 
-    // ATTENZIONE BISOGNA AGGIUNGERE LE FOTO CHE SONO BELLE COMPLESSE.
-    // LA LOGICA CHE CI STA DIETRO E'CHE IL FRONT INVIA UN DATO BLOB E IL BACK RITORNA L'IDENTIFICATORE E IL LINK.
     @Transactional
     public ProfileCreative updateProfileCreativeWithPatch(JwtAuthenticationToken auth, ProfileCreativeDTO profileCreativeDTO, BindingResult bindingResult) {
         final var id = auth.getToken().getClaimAsString(StandardClaimNames.SUB);
