@@ -28,7 +28,7 @@
   "oauth2DeviceCodeLifespan": 600,
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
-  "sslRequired": "external",
+  "sslRequired": "none",
   "registrationAllowed": true,
   "registrationEmailAsUsername": true,
   "rememberMe": true,
@@ -674,8 +674,8 @@
       "clientId": "artempact-clien-web",
       "name": "${Artempact_Clien_Web}",
       "description": "Client for the web App and progressive web App",
-      "rootUrl": "http://34.16.155.45:3000",
-      "adminUrl": "http://34.16.155.45:3000",
+      "rootUrl": "http://localhost:3000",
+      "adminUrl": "",
       "baseUrl": "/home",
       "surrogateAuthRequired": false,
       "enabled": true,
@@ -721,12 +721,14 @@
       "defaultClientScopes": [
         "web-origins",
         "acr",
+        "user_type",
         "birthdate",
+        "province",
         "phone",
         "city",
         "roles",
+        "prova",
         "profile",
-        "usertype",
         "email"
       ],
       "optionalClientScopes": [
@@ -991,6 +993,36 @@
   ],
   "clientScopes": [
     {
+      "id": "9c2fcf91-9e7d-4191-9c5f-5c472d4770bb",
+      "name": "province",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "04c66def-a3d7-41c5-a683-630c705236c4",
+          "name": "province",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "multivalued": "false",
+            "userinfo.token.claim": "true",
+            "user.attribute": "province",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "province"
+          }
+        }
+      ]
+    },
+    {
       "id": "a8966138-8276-491c-a138-3612655e7b12",
       "name": "role_list",
       "description": "SAML role list",
@@ -1209,8 +1241,38 @@
       ]
     },
     {
+      "id": "3a5c2c1b-832e-49d0-ab12-b4f507bc1367",
+      "name": "prova",
+      "description": "",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "gui.order": "",
+        "consent.screen.text": ""
+      },
+      "protocolMappers": [
+        {
+          "id": "930f211f-6a7f-489a-bd5b-fb2d740f9cd7",
+          "name": "prova",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "multivalued": "false",
+            "userinfo.token.claim": "true",
+            "user.attribute": "prova",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "prova"
+          }
+        }
+      ]
+    },
+    {
       "id": "1a1857fd-145c-44d1-b12b-c535529030c5",
-      "name": "usertype",
+      "name": "user_type",
       "description": "COSTUM: Creative or Business",
       "protocol": "openid-connect",
       "attributes": {
@@ -1221,8 +1283,8 @@
       },
       "protocolMappers": [
         {
-          "id": "038c89e2-3464-4d89-8e45-2d557f3f5446",
-          "name": "userType",
+          "id": "367fb3bd-fd64-4a36-9958-ab9c4834ea86",
+          "name": "user_type",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usermodel-attribute-mapper",
           "consentRequired": false,
@@ -1230,7 +1292,7 @@
             "aggregate.attrs": "false",
             "multivalued": "false",
             "userinfo.token.claim": "true",
-            "user.attribute": "userType",
+            "user.attribute": "user_type",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "user_type"
@@ -1579,19 +1641,20 @@
     }
   ],
   "defaultDefaultClientScopes": [
-    "usertype",
+    "user_type",
     "acr",
     "roles",
     "profile",
     "birthdate",
+    "province",
     "role_list",
     "web-origins",
+    "city",
     "phone",
     "email"
   ],
   "defaultOptionalClientScopes": [
     "address",
-    "city",
     "offline_access"
   ],
   "browserSecurityHeaders": {
@@ -1609,7 +1672,7 @@
     "auth": "true",
     "envelopeFrom": "d.caporaletti2@gmail.com",
     "ssl": "true",
-    "password": "ogvl dbpy velh fgje",
+    "password": "**********",
     "port": "465",
     "host": "smtp.gmail.com",
     "replyTo": "d.caporaletti2@gmail.com",
@@ -1652,14 +1715,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "oidc-sha256-pairwise-sub-mapper",
             "oidc-usermodel-property-mapper",
-            "oidc-usermodel-attribute-mapper",
             "oidc-address-mapper",
             "saml-role-list-mapper",
+            "oidc-usermodel-attribute-mapper",
             "oidc-full-name-mapper",
-            "saml-user-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "saml-user-attribute-mapper"
+            "saml-user-attribute-mapper",
+            "saml-user-property-mapper"
           ]
         }
       },
@@ -1671,14 +1734,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-sha256-pairwise-sub-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-address-mapper",
-            "oidc-usermodel-property-mapper",
-            "saml-role-list-mapper",
             "saml-user-property-mapper",
-            "oidc-full-name-mapper"
+            "oidc-usermodel-attribute-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-address-mapper",
+            "oidc-full-name-mapper",
+            "saml-role-list-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
@@ -1740,7 +1803,7 @@
     ],
     "org.keycloak.userprofile.UserProfileProvider": [
       {
-        "id": "fe5103d8-1f88-48cc-8058-a731dc7ae043",
+        "id": "3d67a076-5e4b-4508-af09-82aa02b04994",
         "providerId": "declarative-user-profile",
         "subComponents": {},
         "config": {}
@@ -2493,15 +2556,20 @@
     "clientOfflineSessionMaxLifespan": "0",
     "oauth2DevicePollingInterval": "5",
     "clientSessionIdleTimeout": "0",
+    "actionTokenGeneratedByUserLifespan-execute-actions": "",
+    "actionTokenGeneratedByUserLifespan-verify-email": "",
     "clientOfflineSessionIdleTimeout": "0",
+    "actionTokenGeneratedByUserLifespan-reset-credentials": "",
     "cibaInterval": "5",
     "realmReusableOtpCode": "false",
     "cibaExpiresIn": "120",
     "oauth2DeviceCodeLifespan": "600",
+    "actionTokenGeneratedByUserLifespan-idp-verify-account-via-email": "",
     "parRequestUriLifespan": "60",
     "clientSessionMaxLifespan": "0",
     "frontendUrl": "",
-    "acr.loa.map": "{}"
+    "acr.loa.map": "{}",
+    "shortVerificationUri": ""
   },
   "keycloakVersion": "21.1.1",
   "userManagedAccessAllowed": false,
