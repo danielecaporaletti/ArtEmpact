@@ -30,7 +30,8 @@ public class ValidationContext {
             "photo", "photo",
             "video", "video",
             "photopremium", "photoPremium",
-            "document", "document"
+            "document", "document",
+            "photoproject", "photoProject"
     );
 
     private static final Map<String, String> VALID_USER_TYPES = Map.of(

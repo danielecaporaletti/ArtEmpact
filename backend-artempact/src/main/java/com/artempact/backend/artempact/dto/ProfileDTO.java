@@ -5,6 +5,7 @@ import com.artempact.backend.artempact.validator.ValidId;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -35,7 +36,7 @@ public abstract class ProfileDTO {
     }
 
     @NotBlank(message = "The email cannot be empty")
-    @Size(max = 254, message = "The email exceed 254 characters")
+    @Email
     private String email;
     @NotBlank(message = "The phone cannot be empty")
     @Size(max = 20, message = "The phone exceed 254 characters")

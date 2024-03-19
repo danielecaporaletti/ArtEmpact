@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/profile/creative/creativeSeeksBusiness/creativeSeeksBusinessLocations")
+@RequestMapping("/profile/creative/creativeSeeksBusiness/creativeSeeksBusinessLocation")
 @RequiredArgsConstructor
 public class CreativeSeeksBusinessLocationController {
 

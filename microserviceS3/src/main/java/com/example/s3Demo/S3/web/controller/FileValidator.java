@@ -17,6 +17,7 @@ public class FileValidator {
     private static final Map<String, List<String>> ALLOWED_EXTENSIONS = Map.of(
             "photo", List.of("jpg", "jpeg", "png", "gif", "svg", "webp", "bmp", "ico"),
             "photopremium", List.of("jpg", "jpeg", "png", "gif", "svg", "webp", "bmp", "ico"),
+            "photoproject", List.of("jpg", "jpeg", "png", "gif", "svg", "webp", "bmp", "ico"),
             "document", List.of("doc", "docx", "pdf", "txt", "jpg", "png", "xls", "xlsx", "csv", "bmp"),
             "video", List.of("mp4", "webm", "ogv", "ogg", "av1")
     );

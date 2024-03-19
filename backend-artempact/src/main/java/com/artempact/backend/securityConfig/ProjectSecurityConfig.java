@@ -34,54 +34,55 @@ public class ProjectSecurityConfig {
                 .cors(cors ->
                         cors.configurationSource(request -> {
                             CorsConfiguration config = new CorsConfiguration();
-                            config.setAllowedOrigins(Collections.singletonList("http://34.16.155.45:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("https://34.16.155.45:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("http://localhost:80"));
-                            config.setAllowedMethods(Collections.singletonList("*"));
+                            config.applyPermitDefaultValues();
+                            config.setAllowedOrigins(Arrays.asList("*")); // Permette tutte le origini
+                            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH")); // Specifica i metodi permessi
                             config.setAllowCredentials(true);
-                            config.setAllowedHeaders(Collections.singletonList("*"));
+                            config.setAllowedHeaders(Arrays.asList("*")); // Permette tutti gli headers
                             config.setExposedHeaders(Arrays.asList("Authorization"));
-                            config.setMaxAge(3600L);
+                            config.setMaxAge(3600L); // Imposta il max age
                             return config;
                         })
                 )
-                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/percorso", "/non", "/protetto", "/da", "/un", "/token")
+                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/percorso", "/non", "/protetto", "/da", "/un", "/token", "/accessOpen")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers("/percorsi", "/per", "/creativi").hasRole("creative")
-                                .requestMatchers("/percorsi", "/per", "/business").hasRole("business")
+                                // Percorsi per CREATIVI
+                                .requestMatchers(
+                                        "/profile/creative",
+                                        "/profile/creative/projectCreative",
+                                        "/profile/creative/creativeCityTarget"
+                                ).hasRole("creative")
+                                // Percorsi per BUSINESS
+                                .requestMatchers(
+                                        "/profile/business",
+                                        "/profile/business/businessCityTarget"
+                                ).hasRole("business")
                                 .requestMatchers("/percorsi", "/per", "/creativi","/premium").hasAnyRole("creative","premium")
                                 .requestMatchers("/percorsi", "/per", "/business","/premium").hasAnyRole("business","premium")
-                                .requestMatchers("/percorso", "/con", "/protezione", "/accessClose",
-                                        "/educationType", //GET
-                                        "/typeOfCreative", //GET
-                                        "/workPreference", //GET
-                                        "/typeOfBusiness", //GET
-                                        "/experienceLevel", //GET
-                                        "/professionalRelationship", //GET
-                                        "/finalRegistrationStep", //POST
+                                // percorsi con protezione
+                                .requestMatchers("/accessClose",
+                                        "/educationType",
+                                        "/typeOfCreative",
+                                        "/workPreference",
+                                        "/typeOfBusiness",
+                                        "/experienceLevel",
+                                        "/professionalRelationship",
+                                        "/finalRegistrationStep",
 
-                                        "/profile/creative", // GET, PATCH
-                                        "/profile/creative/creativeCityTarget", // DELETE
-                                        "/profile/creative/projectCreative", // POST, DELETE, PATCH
+                                        "/profile/business/businessSeeksCreative",
 
-                                        "/profile/business", //GET, PATCH
-                                        "/profile/business/businessCityTarget", // DELETE
+                                        "/profile/creative/creativeSeeksBusiness",
+                                        "/profile/creative/creativeSeeksBusiness/creativeSeeksBusinessLocation",
 
-                                        "/profile/business/businessSeeksCreative", // GET, POST
-                                        "/profile/business/businessSeeksCreative/{businessSeeksCreativeId}", // PATCH, DELETE
-                                        "/profile/creative/creativeSeeksCollaboration", // GET, POST
-                                        "/profile/creative/creativeSeeksCollaboration/{creativeSeeksCollaborationId}", // PATCH, DELETE
-                                        "/profile/creative/creativeSeeksBusiness", // GET, POST
-                                        "/profile/creative/creativeSeeksBusiness/{creativeSeeksBusinessId}", // PATCH, DELETE
-                                        "/profile/creative/creativeSeeksBusiness/locationCard/{creativeSeeksBusinessLocationCardId}", // DELETE
-                                        "/profile/creative/creativeSeeksCollaboration/locationCard/{creativeSeeksCollaborationLocationCardId}" // DELETE
+                                        "/profile/creative/creativeSeeksCollaboration",
+                                        "/profile/creative/creativeSeeksCollaboration/creativeSeeksCollaborationLocation"
 
                                 ).authenticated()
-                                .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen", "/userAttributes", "/backendVersion", "/profile/business2").permitAll()
+                                // percorsi senza protezione
+                                .requestMatchers("/backendVersion").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer
