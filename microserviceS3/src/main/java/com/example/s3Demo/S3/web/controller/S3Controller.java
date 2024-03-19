@@ -20,7 +20,7 @@ import java.util.List;
  * Provides endpoints for uploading and managing files stored in an S3 bucket.
  */
 @RestController
-@RequestMapping("/api/S3/v0")
+@RequestMapping("/S3/v0")
 @Validated
 public class S3Controller {
 

@@ -1,15 +1,17 @@
 package com.artempact.backend;
 
-import com.artempact.backend.mysqlArtempact.entity.lookupEntity.*;
-import com.artempact.backend.mysqlArtempact.repository.lookupRepository.*;
+import com.artempact.backend.artempact.entity.lookup.*;
+import com.artempact.backend.artempact.repository.repository.lookup.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.Arrays;
 
 @SpringBootApplication
+@EnableJpaRepositories(basePackages = "com.artempact.backend.artempact.repository.repository")
 public class BackendApplication {
 
 	@Autowired

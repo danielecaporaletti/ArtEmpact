@@ -2,85 +2,6 @@ version: '3'
 
 services:
 
-  frontend-artempact:
-    build: 
-      context: ./frontend-artempact
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
-    networks:
-      - artempact-network
-  
-  keycloak:
-    image: quay.io/keycloak/keycloak:21.1.1
-    command: 
-      - start-dev
-      - --import-realm
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: mysql
-      KC_DB_URL: jdbc:mysql://mysql-keycloak:3306/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: f8rPm2b5HxN5abgw
-    ports:
-      - 8080:8080
-    volumes:
-      - ./seeding-data/realm-artempact-keycloak:/opt/keycloak/data/import
-      - ./seeding-data/keycloak-theme:/opt/keycloak/themes
-    depends_on:
-      mysql-keycloak:
-        condition: service_healthy
-    networks:
-      - artempact-network
-
-  backend-artempact:
-    build:
-      context: ./backend-artempact
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8081"
-    environment:
-      - PROFILE=prod
-      - KEYCLOAK_URL=http://keycloak:8080
-      - KEYCLOAK_REALM=artempact
-      - KEYCLOAK_CLIENT_ID=client-api
-      - KEYCLOAK_CLIENT_SECRET=Sxd7blWsnlkQrMpzAA6MPqsZXBgDOQw6
-      - DATABASE_ARTEMPACT_USERNAME=root
-      - DATABASE_ARTEMPACT_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
-      - DATABASE_ARTEMPACT_URL=jdbc:mysql://mysql-artempact:3306/artempact
-      - DATABASE_GEOGRAPHIC_USERNAME=root
-      - DATABASE_GEOGRAPHIC_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
-      - DATABASE_ITALIA_URL=jdbc:mysql://mysql-geographic:3306/geographic_ITALIA
-    depends_on:
-      mysql-artempact:
-        condition: service_healthy
-      mysql-geographic:
-        condition: service_healthy
-    networks:
-      - artempact-network
-
-  microservice-s3:
-    build:
-      context: ./microserviceS3
-      dockerfile: Dockerfile
-    ports:
-      - "8082:8082"
-    environment:
-      - PROFILE=prod
-      - BUCKET_NAME=artempact2400
-      - ACCESS_KEY=AKIAVRUVTH5RAKHWG37Z
-      - SECRET_KEY=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
-      - AWS_REGION=us-west-1
-      - DATABASE_ARTEMPACT_USERNAME=root
-      - DATABASE_ARTEMPACT_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
-      - DATABASE_ARTEMPACT_URL=jdbc:mysql://mysql-artempact:3306/artempact
-    depends_on:
-      mysql-artempact:
-        condition: service_healthy
-    networks:
-      - artempact-network
-  
   mysql-keycloak:
     image: mysql:8
     environment:
@@ -139,8 +60,93 @@ services:
       retries: 10
     networks:
       - artempact-network
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.1
+    command: 
+      - start-dev
+      - --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://mysql-keycloak:3306/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: f8rPm2b5HxN5abgw
+    ports:
+      - 8080:8080
+    volumes:
+      - ./seeding-data/realm-artempact-keycloak:/opt/keycloak/data/import
+      - ./seeding-data/keycloak-theme:/opt/keycloak/themes
+    depends_on:
+      mysql-keycloak:
+        condition: service_healthy
+    networks:
+      - artempact-network
 
+  backend-artempact:
+    build:
+      context: ./backend-artempact
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - PROFILE=prod
+      - KEYCLOAK_URL=http://keycloak:8080
+      - KEYCLOAK_REALM=artempact
+      - KEYCLOAK_CLIENT_ID=client-api
+      - KEYCLOAK_CLIENT_SECRET=Sxd7blWsnlkQrMpzAA6MPqsZXBgDOQw6
+      - DATABASE_ARTEMPACT_USERNAME=root
+      - DATABASE_ARTEMPACT_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
+      - DATABASE_ARTEMPACT_URL=jdbc:mysql://mysql-artempact:3306/artempact
+      - VERSION_BACKEND=0.1
+    depends_on:
+      mysql-artempact:
+        condition: service_healthy
+    networks:
+      - artempact-network
+
+  microservice-s3:
+    build:
+      context: ./microserviceS3
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - PROFILE=prod
+      - BUCKET_NAME=artempact2400
+      - ACCESS_KEY=AKIAVRUVTH5RAKHWG37Z
+      - SECRET_KEY=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
+      - AWS_REGION=us-west-1
+      - DATABASE_ARTEMPACT_USERNAME=root
+      - DATABASE_ARTEMPACT_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
+      - DATABASE_ARTEMPACT_URL=jdbc:mysql://mysql-artempact:3306/artempact
+    depends_on:
+      mysql-artempact:
+        condition: service_healthy
+    networks:
+      - artempact-network
+
+  microservice-geo:
+    build:
+      context: ./microserviceGeo
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - PROFILE=prod
+      - DATABASE_GEOGRAPHIC_USERNAME=root
+      - DATABASE_GEOGRAPHIC_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
+      - DATABASE_ITALIA_URL=jdbc:mysql://mysql-geographic:3306/geographic_ITALIA
+    depends_on:
+      mysql-geographic:
+        condition: service_healthy
+    networks:
+      - artempact-network
+      
 networks:
   artempact-network:
     driver: bridge
+
+  
 

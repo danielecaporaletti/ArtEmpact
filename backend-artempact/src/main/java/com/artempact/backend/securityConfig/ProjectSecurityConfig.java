@@ -1,7 +1,7 @@
 package com.artempact.backend.securityConfig;
 
 import com.artempact.backend.filter.CsrfCookieFilter;
-import com.artempact.backend.mysqlKeycloak.config.KeycloakRoleConverter;
+import com.artempact.backend.keycloak.config.KeycloakRoleConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -63,15 +63,13 @@ public class ProjectSecurityConfig {
                                         "/experienceLevel", //GET
                                         "/professionalRelationship", //GET
                                         "/finalRegistrationStep", //POST
-                                        "/comuni/namesByPrefix", //GET
 
                                         "/profile/creative", // GET, PATCH
-                                        "/profile/creative/jobSearchLocation/{jobSearchLocationId}", // DELETE
-                                        "/profile/creative/projectCreative", // POST
-                                        "/profile/creative/projectCreative/{projectCreativeId}", // DELETE, PATCH
+                                        "/profile/creative/creativeCityTarget", // DELETE
+                                        "/profile/creative/projectCreative", // POST, DELETE, PATCH
 
                                         "/profile/business", //GET, PATCH
-                                        "/profile/business/creativeSearchLocation/{creativeSearchLocationId}", // DELETE
+                                        "/profile/business/businessCityTarget", // DELETE
 
                                         "/profile/business/businessSeeksCreative", // GET, POST
                                         "/profile/business/businessSeeksCreative/{businessSeeksCreativeId}", // PATCH, DELETE
@@ -83,7 +81,7 @@ public class ProjectSecurityConfig {
                                         "/profile/creative/creativeSeeksCollaboration/locationCard/{creativeSeeksCollaborationLocationCardId}" // DELETE
 
                                 ).authenticated()
-                                .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen", "/userAttributes").permitAll()
+                                .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen", "/userAttributes", "/backendVersion", "/profile/business2").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer

@@ -44,7 +44,7 @@ public class S3ControllerService {
 
         URL url = s3Service.uploadFileS3(file, fileName);
 
-        return new APIResponse(valid.fileType + " uploaded successfully in " + valid.getFileType() + firstFreePosition + " field.", url.toString(), fileName,true,201);
+        return new APIResponse(valid.fileType + " uploaded successfully in " + valid.getFileType() + firstFreePosition + " field.", fileName, url.toString(),true,201);
     }
 
     public APIResponse updateFile(JwtAuthenticationToken auth, MultipartFile file, String type, String fileNameToChange, String typeOfCard, String cardId) throws InvalidFileException, S3StorageException, DB_ColumnNotFoundException, RequestException, DB_FileNotFoundException, S3_FileUploadException {
@@ -63,7 +63,7 @@ public class S3ControllerService {
         s3Service.deleteFileS3(fileNameToChange);
         dbService.updateFileDB(valid.getContextId(), valid.getTableName(), columnNameInDB, fileName);
         URL url = s3Service.uploadFileS3(file, fileName);
-        return new APIResponse(valid.fileType + " uploaded successfully in " + columnNameInDB + " field.", url.toString(), fileName,true,202);
+        return new APIResponse(valid.fileType + " uploaded successfully in " + columnNameInDB + " field.", fileName, url.toString(),true,202);
     }
 
     public APIResponse deleteFile(JwtAuthenticationToken auth, String fileName, String typeOfCard, String cardId) throws RequestException, DB_ColumnNotFoundException, DB_FileNotFoundException, S3StorageException {

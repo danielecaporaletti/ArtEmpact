@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- Definisce la versione del modello di progetto usata da questo POM. -->
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.3</version>
+		<!-- Imposta questo progetto come figlio del progetto spring-boot-starter-parent,
+             fornendo configurazioni di default per Spring Boot. -->
+	</parent>
+
+	<groupId>com.artempact.geographical</groupId>
+	<artifactId>microserviceGeo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<!-- Identificatori univoci del progetto che includono groupId, artifactId e version. -->
+
+	<name>microserviceGeo</name>
+	<description>Microservice for geographical coordinates</description>
+	<!-- Nome e descrizione del progetto. -->
+
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<!-- Fornisce supporto per la persistenza dei dati utilizzando Spring Data JPA. -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+			<!-- Facilita la creazione di interfacce RESTful basate sui repository di Spring Data. -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- Supporto per lo sviluppo di applicazioni web, inclusi RESTful. -->
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+			<!-- Connettore JDBC per MySQL, necessario per connettersi a database MySQL. -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<!-- Supporto per testare applicazioni Spring Boot. -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+			<!-- Fornisce supporto per il testing con Spring Security. -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.28</version>
+			<scope>provided</scope>
+			<!-- Libreria Java che utilizza annotazioni per ridurre il codice boilerplate. -->
+		</dependency>
+	</dependencies>
+
+	<build>
+		<!-- Configurazione della build, specifica i plugin utilizzati. -->
+
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- Plugin di Spring Boot per Maven che semplifica la creazione e l'esecuzione di applicazioni Spring Boot. -->
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

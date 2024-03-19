@@ -57,10 +57,10 @@ public class ProjectSecurityConfig {
 
                                 ).authenticated()
                                 .requestMatchers("/percorso", "/senza", "/protezione", "/accessOpen",
-                                        "/api/S3/v0/upload",
-                                        "/api/S3/v0/update",
-                                        "/api/S3/v0/delete",
-                                        "/api/S3/v0/getSignedUrls"
+                                        "/S3/v0/upload",
+                                        "/S3/v0/update",
+                                        "/S3/v0/delete",
+                                        "/S3/v0/getSignedUrls"
                                 ).permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
