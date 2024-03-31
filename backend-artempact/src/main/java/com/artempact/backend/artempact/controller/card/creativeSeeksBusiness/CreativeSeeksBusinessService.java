@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -109,9 +110,15 @@ public class CreativeSeeksBusinessService {
                 entity::setIdentifyBusinessType,
                 typeOfBusinessRepository);
 
+        // Assicura che la lista di località dell'entità non sia null.
+        // Se è null, inizializzala prima di procedere.
+        if (entity.getCreativeSeeksBusinessLocations() == null) {
+            entity.setCreativeSeeksBusinessLocations(new HashSet<>());
+        }
         // Handle CreativeSeeksBusinessLocation
         if (dto.getCreativeSeeksBusinessLocations() != null && !dto.getCreativeSeeksBusinessLocations().isEmpty()) {
             dto.getCreativeSeeksBusinessLocations().forEach(location -> {
+                // Poiché hai già assicurato che getCreativeSeeksBusinessLocations() non sia null, questo stream non causerà NullPointerException.
                 Optional<CreativeSeeksBusinessLocation> existingLocation = entity.getCreativeSeeksBusinessLocations().stream()
                         .filter(ct -> ct.getCity().equals(location.getCity()) && ct.getProvince().equals(location.getProvince()))
                         .findFirst();

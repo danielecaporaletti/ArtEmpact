@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class CreativeSeeksCollaborationDTO extends CardDTO {
-    @NotBlank(message = "The personalVisionMission cannot be empty")
     @Size(max = 280, message = "The personalVisionMission exceed 280 characters")
     private String personalVisionMission;
     @ValidId(value = "typeOfCreative")

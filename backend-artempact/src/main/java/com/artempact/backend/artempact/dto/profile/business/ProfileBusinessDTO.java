@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class ProfileBusinessDTO extends ProfileDTO {
-    @NotBlank(message = "The businessName cannot be empty")
     @Size(max = 100, message = "The businessName exceed 100 characters")
     private String businessName;
     @ValidId(value = "typeOfBusiness")

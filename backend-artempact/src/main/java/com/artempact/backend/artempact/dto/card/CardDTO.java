@@ -14,10 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class CardDTO {
-    @NotBlank(message = "The title cannot be empty")
     @Size(max = 55, message = "The title exceed 55 characters")
     private String title;
-    @NotBlank(message = "The description cannot be empty")
     @Size(max = 280, message = "The description exceed 280 characters")
     private String description;
     private Integer minProjectBudget;

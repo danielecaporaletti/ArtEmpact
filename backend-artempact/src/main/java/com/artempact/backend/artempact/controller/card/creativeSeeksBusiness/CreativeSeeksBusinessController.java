@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/profile/business/creativeSeeksBusiness")
+@RequestMapping("/profile/creative/creativeSeeksBusiness")
 @RequiredArgsConstructor
 public class CreativeSeeksBusinessController {
 

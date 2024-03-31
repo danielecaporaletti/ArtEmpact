@@ -17,7 +17,7 @@ public class YearConstraintValidator implements ConstraintValidator<ValidYear, S
     @Override
     public boolean isValid(Short value, ConstraintValidatorContext context) {
         if (value == null) {
-            return false;
+            return true;
         }
         int currentYear = Year.now().getValue();
         return value >= min && value <= currentYear;

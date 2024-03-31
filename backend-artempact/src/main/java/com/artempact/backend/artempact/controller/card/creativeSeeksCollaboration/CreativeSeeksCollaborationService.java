@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -109,6 +110,11 @@ public class CreativeSeeksCollaborationService {
                 entity::setIdentifyCreativeType,
                 typeOfCreativeRepository);
 
+        // Assicura che la lista di località dell'entità non sia null.
+        // Se è null, inizializzala prima di procedere.
+        if (entity.getCreativeSeeksCollaborationLocations() == null) {
+            entity.setCreativeSeeksCollaborationLocations(new HashSet<>());
+        }
         // Handle CreativeSeeksCollaborationLocation
         if (dto.getCreativeSeeksCollaborationLocations() != null && !dto.getCreativeSeeksCollaborationLocations().isEmpty()) {
             dto.getCreativeSeeksCollaborationLocations().forEach(location -> {

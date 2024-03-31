@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BusinessSeeksCreativeDTO extends CardDTO {
-    @NotBlank(message = "The companyVisionMission cannot be empty")
     @Size(max = 280, message = "The companyVisionMission exceed 280 characters")
     private String companyVisionMission;
     @ValidId(value = "typeOfCreative")

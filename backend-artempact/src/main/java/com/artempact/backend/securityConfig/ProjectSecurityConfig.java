@@ -35,7 +35,7 @@ public class ProjectSecurityConfig {
                         cors.configurationSource(request -> {
                             CorsConfiguration config = new CorsConfiguration();
                             config.applyPermitDefaultValues();
-                            config.setAllowedOrigins(Arrays.asList("*")); // Permette tutte le origini
+                            config.setAllowedOrigins(Arrays.asList("*", "http://localhost:5173/*)", "http://localhost:5173")); // Permette tutte le origini
                             config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH")); // Specifica i metodi permessi
                             config.setAllowCredentials(true);
                             config.setAllowedHeaders(Arrays.asList("*")); // Permette tutti gli headers
@@ -51,19 +51,23 @@ public class ProjectSecurityConfig {
                         authorize
                                 // Percorsi per CREATIVI
                                 .requestMatchers(
-                                        "/profile/creative",
-                                        "/profile/creative/projectCreative",
-                                        "/profile/creative/creativeCityTarget"
+                                        ""
                                 ).hasRole("creative")
                                 // Percorsi per BUSINESS
                                 .requestMatchers(
-                                        "/profile/business",
-                                        "/profile/business/businessCityTarget"
+                                        ""
                                 ).hasRole("business")
                                 .requestMatchers("/percorsi", "/per", "/creativi","/premium").hasAnyRole("creative","premium")
                                 .requestMatchers("/percorsi", "/per", "/business","/premium").hasAnyRole("business","premium")
                                 // percorsi con protezione
                                 .requestMatchers("/accessClose",
+                                        "/profile/creative",
+                                        "/profile/creative/projectCreative",
+                                        "/profile/creative/creativeCityTarget",
+
+                                        "/profile/business",
+                                        "/profile/business/businessCityTarget",
+
                                         "/educationType",
                                         "/typeOfCreative",
                                         "/workPreference",
@@ -78,7 +82,10 @@ public class ProjectSecurityConfig {
                                         "/profile/creative/creativeSeeksBusiness/creativeSeeksBusinessLocation",
 
                                         "/profile/creative/creativeSeeksCollaboration",
-                                        "/profile/creative/creativeSeeksCollaboration/creativeSeeksCollaborationLocation"
+                                        "/profile/creative/creativeSeeksCollaboration/creativeSeeksCollaborationLocation",
+
+                                        "/match/nextCard",
+                                        "/match/resultCompatibility"
 
                                 ).authenticated()
                                 // percorsi senza protezione

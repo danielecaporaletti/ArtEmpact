@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class CreativeSeeksBusinessDTO extends CardDTO {
-    @NotBlank(message = "The positionDescription cannot be empty")
     @Size(max = 280, message = "The positionDescription exceed 280 characters")
     private String positionDescription;
     @ValidId(value = "typeOfBusiness")
