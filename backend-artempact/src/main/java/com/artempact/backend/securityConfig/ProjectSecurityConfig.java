@@ -31,19 +31,6 @@ public class ProjectSecurityConfig {
                         sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .cors(cors ->
-                        cors.configurationSource(request -> {
-                            CorsConfiguration config = new CorsConfiguration();
-                            config.applyPermitDefaultValues();
-                            config.setAllowedOrigins(Arrays.asList("*", "http://localhost:5173/*)", "http://localhost:5173")); // Permette tutte le origini
-                            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH")); // Specifica i metodi permessi
-                            config.setAllowCredentials(true);
-                            config.setAllowedHeaders(Arrays.asList("*")); // Permette tutti gli headers
-                            config.setExposedHeaders(Arrays.asList("Authorization"));
-                            config.setMaxAge(3600L); // Imposta il max age
-                            return config;
-                        })
-                )
                 .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/percorso", "/non", "/protetto", "/da", "/un", "/token", "/accessOpen")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)

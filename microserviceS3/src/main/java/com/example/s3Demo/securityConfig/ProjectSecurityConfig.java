@@ -29,21 +29,6 @@ public class ProjectSecurityConfig {
                         sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .cors(cors ->
-                        cors.configurationSource(request -> {
-                            CorsConfiguration config = new CorsConfiguration();
-                            config.setAllowedOrigins(Collections.singletonList("http://34.16.155.45:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("https://34.16.155.45:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-                            config.setAllowedOrigins(Collections.singletonList("http://localhost:80"));
-                            config.setAllowedMethods(Collections.singletonList("*"));
-                            config.setAllowCredentials(true);
-                            config.setAllowedHeaders(Collections.singletonList("*"));
-                            config.setExposedHeaders(Arrays.asList("Authorization"));
-                            config.setMaxAge(3600L);
-                            return config;
-                        })
-                )
                 .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/percorso", "/non", "/protetto", "/da", "/un", "/token")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
