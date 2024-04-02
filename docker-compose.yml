@@ -92,6 +92,7 @@ services:
       - "8081:8081"
     environment:
       - PROFILE=prod
+      - FRONTEND_URL=http://localhost:5173
       - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_REALM=artempact
       - KEYCLOAK_CLIENT_ID=client-api
@@ -114,6 +115,7 @@ services:
       - "8082:8082"
     environment:
       - PROFILE=prod
+      - FRONTEND_URL=http://localhost:5173
       - BUCKET_NAME=artempact2400
       - ACCESS_KEY=AKIAVRUVTH5RAKHWG37Z
       - SECRET_KEY=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
@@ -135,6 +137,7 @@ services:
       - "8083:8083"
     environment:
       - PROFILE=prod
+      - FRONTEND_URL=http://localhost:5173
       - DATABASE_GEOGRAPHIC_USERNAME=root
       - DATABASE_GEOGRAPHIC_PASSWORD=ZXJndWllZ3ZiaWVydmdicmVr
       - DATABASE_ITALIA_URL=jdbc:mysql://mysql-geographic:3306/geographic_ITALIA
