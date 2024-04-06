@@ -23,7 +23,7 @@ public class AsyncGeoService {
 
     @Autowired
     public AsyncGeoService(WebClient.Builder webClientBuilder, GeoUpdateService geoUpdateService) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8083/geo/v0").build();
+        this.webClient = webClientBuilder.baseUrl("http://35.237.137.219:8083/geo/v0").build();
         this.geoUpdateService = geoUpdateService;
     }
 
