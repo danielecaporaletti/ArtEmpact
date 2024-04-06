@@ -40,6 +40,7 @@ public class CompatibilityController {
         String userId = auth.getToken().getClaimAsString(StandardClaimNames.SUB);
         String userType = auth.getToken().getClaimAsString("user_type");
 
+        System.out.println(userType);
         Optional<MatchResult> matchResult;
 
         switch (userType) {

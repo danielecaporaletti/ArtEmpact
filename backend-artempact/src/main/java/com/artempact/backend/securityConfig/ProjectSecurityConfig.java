@@ -70,6 +70,8 @@ public class ProjectSecurityConfig {
                                         "/profile/creative/creativeSeeksCollaboration",
                                         "/profile/creative/creativeSeeksCollaboration/creativeSeeksCollaborationLocation",
 
+                                        "/match/nextCardCreative",
+                                        "/match/nextCardBusiness",
                                         "/match/nextCard",
                                         "/match/resultCompatibility"
 
