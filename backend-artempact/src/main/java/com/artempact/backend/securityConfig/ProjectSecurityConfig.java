@@ -26,12 +26,14 @@ public class ProjectSecurityConfig {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
 
-        http
+        HttpSecurity httpSecurity = http
+                .cors() // Assicurati di abilitare CORS
+                .and() // Aggiungi .and() per concatenare le configurazioni
                 .sessionManagement(sessionManagement ->
                         sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/finalRegistrationStep","/percorso", "/non", "/protetto", "/da", "/un", "/token", "/accessOpen")
+                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/finalRegistrationStep", "/percorso", "/non", "/protetto", "/da", "/un", "/token", "/accessOpen")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize ->
@@ -44,8 +46,8 @@ public class ProjectSecurityConfig {
                                 .requestMatchers(
                                         ""
                                 ).hasRole("business")
-                                .requestMatchers("/percorsi", "/per", "/creativi","/premium").hasAnyRole("creative","premium")
-                                .requestMatchers("/percorsi", "/per", "/business","/premium").hasAnyRole("business","premium")
+                                .requestMatchers("/percorsi", "/per", "/creativi", "/premium").hasAnyRole("creative", "premium")
+                                .requestMatchers("/percorsi", "/per", "/business", "/premium").hasAnyRole("business", "premium")
                                 // percorsi con protezione
                                 .requestMatchers("/accessClose",
                                         "/profile/creative",
@@ -77,7 +79,7 @@ public class ProjectSecurityConfig {
 
                                 ).authenticated()
                                 // percorsi senza protezione
-                                .requestMatchers("/backendVersion","/finalRegistrationStep").permitAll()
+                                .requestMatchers("/backendVersion", "/finalRegistrationStep").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer
