@@ -31,7 +31,7 @@ public class ProjectSecurityConfig {
                         sessionManagement
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/percorso", "/non", "/protetto", "/da", "/un", "/token", "/accessOpen")
+                .csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).ignoringRequestMatchers("/finalRegistrationStep","/percorso", "/non", "/protetto", "/da", "/un", "/token", "/accessOpen")
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize ->
@@ -61,7 +61,6 @@ public class ProjectSecurityConfig {
                                         "/typeOfBusiness",
                                         "/experienceLevel",
                                         "/professionalRelationship",
-                                        "/finalRegistrationStep",
 
                                         "/profile/business/businessSeeksCreative",
 
@@ -76,7 +75,7 @@ public class ProjectSecurityConfig {
 
                                 ).authenticated()
                                 // percorsi senza protezione
-                                .requestMatchers("/backendVersion").permitAll()
+                                .requestMatchers("/backendVersion","/finalRegistrationStep").permitAll()
                 )
                 .oauth2ResourceServer(oauth2ResourceServer ->
                         oauth2ResourceServer
