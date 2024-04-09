@@ -26,7 +26,7 @@ public class ProjectSecurityConfig {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
 
-        HttpSecurity httpSecurity = http
+        http
                 .cors() // Assicurati di abilitare CORS
                 .and() // Aggiungi .and() per concatenare le configurazioni
                 .sessionManagement(sessionManagement ->
@@ -86,7 +86,7 @@ public class ProjectSecurityConfig {
                                 .jwt(jwt ->
                                         jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)
                                 )
-                );
+                )
 
         return http.build();
     }

@@ -93,6 +93,7 @@ services:
     environment:
       - PROFILE=prod
       - FRONTEND_URL=http://localhost:5173
+      - GEOGRAPHIC_URL=http://35.237.137.219:8083/geo/v0
       - KEYCLOAK_URL=http://keycloak:8080
       - KEYCLOAK_REALM=artempact
       - KEYCLOAK_CLIENT_ID=client-api

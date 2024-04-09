@@ -5,6 +5,7 @@ import com.artempact.backend.artempact.repository.genericRepositoryNoJPA.Generic
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,12 @@ public class AsyncGeoService {
     private final GeoUpdateService geoUpdateService;
     private static final Logger log = LoggerFactory.getLogger(AsyncGeoService.class);
 
+    @Value("${url.microservice.version}")
+    private String microserviceGeo;
+
     @Autowired
     public AsyncGeoService(WebClient.Builder webClientBuilder, GeoUpdateService geoUpdateService) {
-        this.webClient = webClientBuilder.baseUrl("http://35.237.137.219:8083/geo/v0").build();
+        this.webClient = webClientBuilder.baseUrl(microserviceGeo).build();
         this.geoUpdateService = geoUpdateService;
     }
 

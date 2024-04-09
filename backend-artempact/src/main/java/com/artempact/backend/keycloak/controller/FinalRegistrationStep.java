@@ -153,6 +153,7 @@ public class FinalRegistrationStep {
         String city = newAttributes.getCity();
         String province = newAttributes.getProvince();
         String stageName = newAttributes.getStageName();
+        short maxDistance = 9000;
 
         try {
             Profile newProfile = null;
@@ -172,6 +173,7 @@ public class FinalRegistrationStep {
                 profileCreative.getLocality().setLat(20.0);
                 profileCreative.getLocality().setLon(20.0);
                 profileCreative.setCreativeName(stageName);
+                profileCreative.setMaxDistance(maxDistance);
                 newProfile = profileCreative; // Assegna il profileCreative al riferimento di tipo Profile
                 profileCreativeRepository.save(profileCreative);
             } else if ("business".equals(newAttributes.getUserType())) {
@@ -190,6 +192,7 @@ public class FinalRegistrationStep {
                 profileBusiness.getLocality().setLat(20.0);
                 profileBusiness.getLocality().setLon(20.0);
                 profileBusiness.setBusinessName(stageName);
+                profileBusiness.setMaxDistance(maxDistance);
                 newProfile = profileBusiness; // Assegna il profileBusiness al riferimento di tipo Profile
                 profileBusinessRepository.save(profileBusiness);
             }
