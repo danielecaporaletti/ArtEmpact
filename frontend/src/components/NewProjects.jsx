@@ -4,16 +4,32 @@ import Logo from "../atoms/Logo";
 import IconBell from "../icons/IconBell";
 import FooterNavBar from "./FooterNavBar";
 import Button from "../atoms/Button";
-import InputField from "../atoms/inputField";
+import InputField from "../atoms/InputField";
 import TextArea from "../atoms/TextArea";
 import VerticalHeader from "../atoms/VerticalHeader";
 import { Link } from "react-router-dom";
 import { useProjectContext } from "../contexts/ProjectContext";
+import { usePostProjects } from "../hooks/usePostProjects";
 
 const NewProjects = ({ handlerClick }) => {
-  const { inputProject, handleChange, submit, inputFile, handleFile } =
+  const { mutate } = usePostProjects();
+  const { inputProject, handleChange, setInputProject, inputFile, handleFile } =
     useProjectContext();
-
+  const submit = (e) => {
+    if (!inputProject) {
+      e.preventDefault();
+    } else {
+      mutate(inputProject);
+      setInputProject({
+        name: "",
+        year: "",
+        type: "",
+        description: "",
+        customer: null,
+        link: null,
+      });
+    }
+  };
   return (
     <>
       <div className="w-full max-w-md">
@@ -32,8 +48,8 @@ const NewProjects = ({ handlerClick }) => {
         <InputField
           size="small"
           text="💡 Nome del Progetto"
-          value={inputProject.nome}
-          name="nome"
+          value={inputProject.name}
+          name="name"
           onChange={handleChange}
         />
         <div className="relative w-full flex gap-2 snap-x snap-mandatory overflow-x-auto py-4">
@@ -57,27 +73,27 @@ const NewProjects = ({ handlerClick }) => {
           <InputField
             size="small"
             text="🗓️ Anno del Progetto*"
-            value={inputProject.anno}
-            name="anno"
+            value={inputProject.year}
+            name="year"
             onChange={handleChange}
           />
           <InputField
             size="small"
             text="☑️ Tipo di progetto*"
-            value={inputProject.tipo}
-            name="tipo"
+            value={inputProject.type}
+            name="type"
             onChange={handleChange}
           />
           <TextArea
-            value={inputProject.descrizione}
-            name="descrizione"
+            value={inputProject.description}
+            name="description"
             onChange={handleChange}
           />
           <InputField
             size="small"
             text="👤 Committente (facoltativo)"
-            value={inputProject.committente}
-            name="committente"
+            value={inputProject.customer}
+            name="customer"
             onChange={handleChange}
           />
           <InputField

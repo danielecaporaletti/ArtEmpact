@@ -1,31 +1,20 @@
 //Page1.jsx
 import IconVerified from "../../../icons/IconVerified";
 import background from "./man.png";
-import { useFetchNextcard } from "../../../hooks/useNextCard";
+
 // Chiamata GET
 
 // Creazione oggetto da inserire nella pagina
 // Inserire i parametri dell'oggetto nella pagian
 
-function Page1() {
-  const { data, isLoading, isError, error } = useFetchNextcard();
+function Page1({ data }) {
 
-  if (isLoading) {
-    return <div>Caricamento in corso...</div>;
-  }
-
-  if (isError) {
-    return <div>Errore nel caricamento: {error.message}</div>;
-  }
-
-  console.log(data);
   
   const dataPage1 = {
-    titolo: data.data.compatibilityCard.title,
+    titolo: "Merli Srl",
     description: "Azienda Corporate",
-    hook: "Sta cercando",
-    object: "Scultore per",
-    core: "progetto di un cliente",
+    hook: data?.data.compatibilityCard.title,
+    
   };
 
   return (

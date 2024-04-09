@@ -1,13 +1,10 @@
 import HeroRequest from "../../../../../components/JobRequestscomponent/HeroRequest";
 import TextArea from "../../../../../components/JobRequestscomponent/TextArea";
 import ButtonRequest from "../../../../../components/JobRequestscomponent/ButtonRequest";
-import { useFetchBusinessCards } from "../../../../../hooks/useFetchBusinessCards";
 import { useCreateCard } from "../../../../../contexts/CreateCardContext";
 const Page1 = ({ pages, changePage }) => {
   const { title, dispatch } = useCreateCard();
-  const { data } = useFetchBusinessCards();
 
-  console.log(data)
  
   const handleChangeTitle = (event) => {
     if (event.target.value?.length <= 55) {

@@ -1,9 +1,8 @@
 //Page2.jsx
 
-function Page2() {
+function Page2({data}) {
   const user = {
-    chiSono:
-      " Lorem ipsum dolor sit amet consectetur. Adipiscing justo ac justo tellus proin. Tempor tempus cursus egestas vel egestas fermentum nibh turpis viverra. Pulvinar cras vitae enim facilisis. Turpis curabitur amet risus mattis. Cras ut potenti nisl eleifend risus. Consequat lobortis ultrices hac egestas at.",
+    chiSono: data?.data.compatibilityCard.description,
   };
   return (
     <div className="flex flex-col justify-start items-start h-full">

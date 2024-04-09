@@ -5,15 +5,35 @@ import HomeCTA from "../../../components/HomeCTA";
 import FooterNavBar from "../../../components/FooterNavBar";
 import SlideSection from "../../../components/SlideSection";
 import NotificationCenter from "../../../components/NotificationCenter"; // Aggiunto import
+import { useMatchPost } from "../../../hooks/usePostMatch";
+import { useFetchNextcard } from "../../../hooks/useNextCard";
 
 function HomeCreative() {
   const maxPage = 3;
   const [count, setCount] = useState(1);
-  const [isNotificationCenterOpen, setIsNotificationCenterOpen] =
-    useState(false);
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+
+  // Estrai dati con useFetchNextcard
+  const [fetchTrigger, setFetchTrigger] = useState(0);
+  const { data: nextCardData } = useFetchNextcard(fetchTrigger);
+  console.log("nextCardData:", nextCardData);
+
+  // Estrai 'mutate' da useMatchPost e rinominalo in 'postMatchResult'
+  const { mutate: postMatchResult } = useMatchPost();
 
   const toggleNotificationCenter = () => {
     setIsNotificationCenterOpen(!isNotificationCenterOpen);
+  };
+
+  const handleSlideSectionChange = (isCompatible) => {
+    console.log("handleSlideSectionChange - isCompatible:", isCompatible);
+    // Questo log dovrebbe mostrare correttamente true o false.
+    postMatchResult({ isCompatible: isCompatible, cardData: nextCardData.data }, {
+      onSuccess: () => {
+        // Chiamata andata a buon fine, ora puoi ricaricare la prossima carta
+        setFetchTrigger(prev => prev + 1);
+      }
+    });
   };
 
   return (
@@ -23,8 +43,8 @@ function HomeCreative() {
         {isNotificationCenterOpen && (
           <NotificationCenter onClose={toggleNotificationCenter} />
         )}
-        <HomeCard count={count} setCount={setCount} maxPage={maxPage} />
-        <SlideSection count={count} maxPage={maxPage} />
+        <HomeCard count={count} setCount={setCount} maxPage={maxPage} data={nextCardData}/>
+        <SlideSection count={count} maxPage={maxPage} onSelectionChange={handleSlideSectionChange} />
         <div className="flex-1 flex flex-col justify-between">
           {/* Il componente qui ora occuperà tutto lo spazio disponibile rimanente in verticale */}
           <HomeCTA from={"creative"} />

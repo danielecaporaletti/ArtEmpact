@@ -1,7 +1,26 @@
 import IconX from "../../icons/IconX";
 import myGif from "../../../src/gif/match.gif";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function MatchPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const getHomePath = () => {
+    switch (currentPath) {
+      case "/home/business":
+        return "/home/business";
+      case "/home/creative":
+        return "/home/creative";
+      default:
+        // Handle unexpected paths (optional)
+        return "/"; // Redirect to default home if path not found
+    }
+  };
+
+  const navigateToHome = () => navigate(getHomePath());
+
   return (
     <div className="w-full min-h-screen flex flex-col bg-white items-center">
       <div className="w-[0.75rem] h-[1rem] my-[0.62rem] mx-[1.56rem] text-primary-color self-start">
@@ -26,7 +45,7 @@ function MatchPage() {
       <div className="secondary-btn w-[7.625rem] min-h-[3.3125rem] text-[1rem] mb-[4.69rem] font-medium">
         <p>Visita il profilo</p>
       </div>
-      <div className="text-[1rem] text-black font-medium pb-[4.5rem]">
+      <div className="text-[1rem] text-black font-medium pb-[4.5rem]" onClick={navigateToHome}>
         <p>Fai altri match</p>
       </div>
     </div>

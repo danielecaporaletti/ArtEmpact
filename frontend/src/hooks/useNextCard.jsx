@@ -8,6 +8,6 @@ const fetchNextcard = () => {
     });
   }
 
-export const useFetchNextcard = () => {
+export const useFetchNextcard = (fetchKey) => {
   return useQuery(["algorithm"], fetchNextcard)
 };

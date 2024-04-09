@@ -1,11 +1,14 @@
 //Page.jsx
 import { GoArrowRight, GoArrowLeft } from "react-icons/go";
 
+
 import Page1 from "./Page1";
 import Page2 from "./Page2";
 import Page3 from "./Page3";
 
-function Page({ count, setCount, maxPage }) {
+function Page({ count, setCount, maxPage, data }) {
+  
+ 
   return (
     <div className="styledPage">
       <div className="arrowColumn ml-[.44rem] mr-[1rem]">
@@ -27,9 +30,9 @@ function Page({ count, setCount, maxPage }) {
         ) : null}
       </div>
       <div className="pageMain">
-        {count === 1 ? <Page1 /> : null}
-        {count === 2 ? <Page2 /> : null}
-        {count === 3 ? <Page3 /> : null}
+        {count === 1 ? <Page1 data={data} /> : null}
+        {count === 2 ? <Page2 data={data}/> : null}
+        {count === 3 ? <Page3 data={data}/> : null}
       </div>
 
       <div className="arrowColumn mr-[.44rem]">

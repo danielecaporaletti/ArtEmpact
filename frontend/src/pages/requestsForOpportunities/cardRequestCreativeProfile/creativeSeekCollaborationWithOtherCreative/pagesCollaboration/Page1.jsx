@@ -2,11 +2,10 @@ import HeroRequest from "../../../../../components/JobRequestscomponent/HeroRequ
 import TextArea from "../../../../../components/JobRequestscomponent/TextArea";
 import ButtonRequest from "../../../../../components/JobRequestscomponent/ButtonRequest";
 import { useCreateCard } from "../../../../../contexts/CreateCardContextCollaboration";
-import { useFetchCollaborationCards } from "../../../../../hooks/useFetchCollaborationCards";
+
 const Page1 = ({ pages, changePage }) => {
   const { title, dispatch } = useCreateCard();
-  const { data } = useFetchCollaborationCards();
-  console.log(data)
+
 
   const handleChangeTitle = (event) => {
     if (event.target.value?.length <= 55) {

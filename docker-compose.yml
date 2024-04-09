@@ -2,6 +2,14 @@ version: '3'
 
 services:
 
+  frontend:
+    container_name: frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+
   mysql-keycloak:
     image: mysql:8
     environment:

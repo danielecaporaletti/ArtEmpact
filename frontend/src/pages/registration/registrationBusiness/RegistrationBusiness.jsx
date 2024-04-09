@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import StepOne from "../../../components/registrationForm/StepOne";
 import StepTwo from "../../../components/registrationForm/StepTwo";
 import IntroOne from "../../../components/registrationForm/IntroOne";
-import Intro from "../../../assetTemporanei/introBusinessOne.jpg";
+import Intro from "../../../assetTemporanei/IntroBusinessOne.jpg";
 import IntroTwo from "../../../assetTemporanei/introBusinessTwo.jpg";
 import IntroThree from "../../../assetTemporanei/introBusinessThree.png";
 import StepForm from "../../../components/registrationForm/StepForm";

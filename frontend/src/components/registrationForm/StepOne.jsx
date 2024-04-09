@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../atoms/Button";
-import InputField from "../../atoms/inputField";
+import InputField from "../../atoms/InputField";
 import InputFile from "../../atoms/InputFile";
 import { useFetchCities } from "../../hooks/useFetchCities";
 import CitiesList from "../../atoms/CitiesList";

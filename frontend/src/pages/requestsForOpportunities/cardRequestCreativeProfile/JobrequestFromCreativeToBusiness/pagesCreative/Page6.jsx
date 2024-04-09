@@ -28,7 +28,7 @@ const Page6 = ({ pages, changePage }) => {
     identifyBusinessType,
     creativeSeeksBusinessLocations
   } = useCreateCard();
-  const { mutate, isLoading, data } = usePostCardFinal();
+  const { mutate, isLoading } = usePostCardFinal();
 
   const submitForm = () => {
     
@@ -110,7 +110,7 @@ const Page6 = ({ pages, changePage }) => {
         <div className="pb-[2.31rem] pt-[1rem]">
           <ButtonRequest
             text={"Pubblica"}
-            onClick={() => submitForm(data)}
+            onClick={submitForm}
             disabled={isLoading}
           />
         </div>

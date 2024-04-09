@@ -9,11 +9,11 @@ const ProjectProvider = ({ children }) => {
     imgtre: "",
   });
   const [inputProject, setInputProject] = useState({
-    nome: "",
-    anno: "",
-    tipo: "",
-    descrizione: "",
-    committente: "",
+    name: "",
+    year: "",
+    type: "",
+    description: "",
+    customer: "",
     link: "",
   });
   const handleFile = (e) => {
@@ -27,12 +27,12 @@ const ProjectProvider = ({ children }) => {
       e.preventDefault();
     } else {
       setInputProject({
-        nome: "",
-        anno: "",
-        tipo: "",
-        descrizione: "",
-        committente: "",
-        link: "",
+        name: "",
+        year: "",
+        type: "",
+        description: "",
+        customer: null,
+        link: null,
       });
     }
   };
@@ -43,7 +43,6 @@ const ProjectProvider = ({ children }) => {
         inputProject,
         setInputProject,
         handleChange,
-        submit,
         inputFile,
         setInputFile,
         handleFile,

@@ -2,13 +2,10 @@
 import IconVerified from "../../../icons/IconVerified";
 import background from "./giulia.png";
 
-function Page1() {
+function Page1({ data}) {
   const user = {
     name: "Giulia98",
-    description: "Artista visivo",
-    hook: "Sta cercando",
-    object: "Lavoro come",
-    core: "Videomaker",
+    description: data?.data.compatibilityCard.title,
   };
 
   return (

@@ -162,11 +162,13 @@ export default function ProfileCreative() {
                   Progetto 2
                 </p>
               </div>
-              <div className="w-[8.0625rem] h-[7.1875rem] bg-grey-100 flex justify-center items-center pl-[.44rem] shrink-0">
-                <p className="text-[1.8rem] text-primary-color font-montserrat truncate">
-                  &#43;
-                </p>
-              </div>
+              <Link to="/home/creative/profile/new-project">
+                <div className="w-[8.0625rem] h-[7.1875rem] bg-grey-100 flex justify-center items-center pl-[.44rem] shrink-0">
+                  <p className="text-[1.8rem] text-primary-color font-montserrat truncate">
+                    &#43;
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
           {/* Footer */}

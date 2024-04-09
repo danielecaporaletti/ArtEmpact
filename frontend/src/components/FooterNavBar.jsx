@@ -5,10 +5,9 @@ import IconElipse from "../icons/IconElipse";
 import IconFind from "../icons/IconFind";
 import IconNews from "../icons/IconNews";
 
-
-
 function FooterNavBar({ activePage }) {
   const user = useLocation();
+  console.log(user);
   return (
     <div className="w-[23.48542rem] h-[3.1873rem] flex px-3 py-[.38rem] rounded-[2.3rem] bg-white shadow-btn-vert justify-between items-center mx-auto">
       <Link
@@ -80,7 +79,7 @@ function FooterNavBar({ activePage }) {
           <span>news</span>
         </div>
       </Link>
-      {user ? (
+      {user.pathname === "/home/business" ? (
         <Link
           to="/home/business/profile"
           className={`footer__icon-box fill-primary-color ${
