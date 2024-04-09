@@ -1,0 +1,440 @@
+/* index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 62, 5%;
+  font-family: "Jost", sans-serif;
+}
+
+.no-resize {
+  resize: none;
+  border: 1px solid #99b8dd;
+}
+
+.gradient-layout {
+  background: linear-gradient(to right, #ede4f1, #bbb3f7, #bef2fb);
+}
+
+.gradient-sky {
+  background: linear-gradient(
+    164deg,
+    #99b8dd 38.94%,
+    rgba(15, 83, 184, 0) 98.87%,
+    rgba(15, 83, 184, 0) 98.88%
+  );
+}
+
+.blue-layout {
+  background: #0f53b8;
+}
+
+.orange-layout {
+  background: #ff910b;
+}
+.gradient-purple-layout {
+  background: linear-gradient(
+    164deg,
+    #643dff 1.35%,
+    rgba(15, 83, 184, 0) 98.87%,
+    rgba(255, 255, 255, 0) 98.88%
+  );
+}
+.gradient-button-1 {
+  background: linear-gradient(
+    164deg,
+    #99b8dd 38.94%,
+    rgba(15, 83, 184, 0) 98.87%,
+    rgba(15, 83, 184, 0) 98.88%
+  );
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.17);
+}
+
+.gradient-button-2 {
+  background: linear-gradient(
+    164deg,
+    #643dff 1.35%,
+    rgba(15, 83, 184, 0) 98.87%,
+    rgba(255, 255, 255, 0) 98.88%
+  );
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.17);
+}
+
+.purple-bg {
+  background: #643dff;
+  border: 1px solid #643dff;
+}
+
+.button-blue {
+  background: #0f53b8;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.17);
+}
+.button-orange {
+  background: #ff910b;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.17);
+}
+.text-span {
+  color: #99b8dd;
+}
+
+.nav-button {
+  background-color: white;
+  color: var(--color-secondary-txt);
+  width: 80px;
+  border: none;
+}
+
+.nav-button-2 {
+  background-color: var(--color-primary-btn);
+  color: var(--color-primary-txt);
+  width: 80px;
+  border: none;
+}
+
+.button-full {
+  background-color: var(--color-primary-btn);
+  color: var(--color-primary-txt);
+  border-radius: 50%;
+  width: 19px;
+  height: 19px;
+  text-align: center;
+}
+
+.button-continue {
+  background-color: var(--color-primary-btn);
+  color: var(--color-primary-txt);
+  padding: 15px 90px;
+}
+
+.button-continue:hover {
+  background-color: #7a88f3;
+  color: var(--color-primary-txt);
+  padding: 15px 90px;
+}
+
+.button-continue:active {
+  background-color: var(--color-primary-btn);
+  color: var(--color-primary-txt);
+  padding: 15px 90px;
+}
+
+.my-element {
+  padding: 0 17px;
+}
+
+.file-upload {
+  text-align: center;
+  padding: 1.5rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.file-upload p {
+  font-size: 0.87rem;
+  margin-top: 1px;
+  color: #bbcada;
+}
+.file-upload input {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/*Buttons*/
+@layer components {
+  .primary-btn {
+    @apply bg-primary-color flex justify-center items-center rounded-[0.875rem] text-center;
+  }
+}
+
+@layer components {
+  .secondary-btn {
+    @apply bg-white text-primary-color justify-center items-center rounded-[0.875rem] text-center border border-solid border-primary-color flex;
+  }
+}
+
+@layer components {
+  .styledCard {
+    @apply w-[21.25rem] h-[30.375rem] text-[1rem];
+  }
+}
+
+@layer components {
+  .optionBlock {
+    @apply self-end h-6 w-1/3 flex justify-end justify-items-center items-center mt-4 mb-[2.13rem] mr-[2.35rem];
+  }
+}
+
+@layer components {
+  .containerIconSingle {
+    @apply h-full aspect-square flex justify-center;
+  }
+}
+
+@layer components {
+  .styledPage {
+    @apply h-full w-full flex flex-row;
+  }
+}
+
+@layer components {
+  .arrowColumn {
+    @apply h-full w-[1.6875rem] flex items-center;
+  }
+}
+
+@layer components {
+  .pageMain {
+    @apply h-full w-full flex flex-col;
+  }
+}
+
+@layer components {
+  .styledOverlap {
+    @apply relative h-full w-full;
+  }
+}
+
+@layer components {
+  .styledRectangleOrange {
+    @apply absolute h-full w-full bg-tertiary-color rounded-t-[30px] blur-sm rotate-[3.23deg] opacity-80 shadow-btn-rounded;
+  }
+}
+
+@layer components {
+  .styledRectangleViolet {
+    @apply absolute bg-gradient-rectangle-violet rounded-t-[30px] w-full h-full blur-sm rotate-[-3.68deg] opacity-80 shadow-btn-rounded;
+  }
+}
+
+@layer components {
+  .styledRectangleSky {
+    @apply flex flex-col items-center absolute bg-gradient-rectangle-sky rounded-t-[30px] w-full h-full shadow-btn-rounded;
+  }
+}
+
+@layer components {
+  .footer__icon-box {
+    @apply w-[1.5rem] text-primary-color flex flex-col items-center justify-between min-w-min;
+  }
+}
+
+@layer components {
+  .business__header-icon {
+    @apply aspect-square h-[2.0625rem] p-[.45rem] flex justify-center rounded-full shadow-btn-vert;
+  }
+}
+
+/* ProfileBusiness/EditInfo */
+@layer components {
+  .label {
+    @apply text-[.875rem] font-semibold;
+  }
+}
+
+@layer components {
+  .input__field {
+    @apply w-[21rem] text-[.875rem] font-normal pl-2 border-b border-grey-dark placeholder:text-[.875rem] placeholder:text-grey-700 placeholder:font-jost;
+  }
+}
+@layer components {
+  .input__field-settings {
+    @apply w-[21rem] text-[.875rem] font-light border-b border-grey-dark placeholder:text-[.875rem] placeholder:text-black placeholder:font-jost p-[.5rem];
+  }
+}
+@layer components {
+  .filter__item {
+    @apply w-[4.4375rem] h-[1.0625rem] bg-primary-color rounded-[2.75rem] text-center;
+  }
+}
+
+@layer components {
+  .h4 {
+    @apply text-[.825rem] font-semibold;
+  }
+}
+
+@layer components {
+  .chat_bubble {
+    @apply w-max max-w-[13.375rem] bg-grey-blue rounded-lg p-2 ml-16;
+  }
+}
+
+@layer components {
+  .nav__link-active {
+    @apply scale-110;
+    @apply [&>*]:visible !important;
+    @apply [&>*]:opacity-100 !important;
+    @apply [&>*]:translate-y-0 !important;
+  }
+}
+
+@layer utilities {
+  .exiting {
+    animation: exitAnimation 500ms ease-out forwards;
+  }
+
+  @keyframes exitAnimation {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+}
+@layer utilities {
+  .open {
+    animation: openAnimation 0.3s ease-out forwards;
+  }
+
+  @keyframes openAnimation {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+.rightClip {
+  clip-path: polygon(
+    88.333% 100%,
+    16.449% 90.692%,
+    16.449% 90.692%,
+    15.088% 90.434%,
+    13.815% 90.031%,
+    12.642% 89.495%,
+    11.582% 88.839%,
+    10.65% 88.075%,
+    9.857% 87.215%,
+    9.218% 86.272%,
+    8.745% 85.258%,
+    8.452% 84.187%,
+    8.351% 83.069%,
+    8.351% 28.127%,
+    8.351% 28.127%,
+    8.435% 27.107%,
+    8.68% 26.123%,
+    9.078% 25.183%,
+    9.618% 24.298%,
+    10.292% 23.478%,
+    11.09% 22.734%,
+    12.003% 22.074%,
+    13.021% 21.509%,
+    14.134% 21.048%,
+    15.334% 20.703%,
+    87.314% 4.187%,
+    87.314% 4.187%,
+    89.074% 3.92%,
+    90.805% 3.914%,
+    92.473% 4.151%,
+    94.044% 4.613%,
+    95.485% 5.281%,
+    96.763% 6.136%,
+    97.845% 7.159%,
+    98.696% 8.332%,
+    99.285% 9.637%,
+    99.577% 11.053%,
+    100% 15.736%,
+    100% 87.18%,
+    99.48% 92.935%,
+    99.48% 92.935%,
+    99.219% 94.25%,
+    98.7% 95.475%,
+    97.947% 96.591%,
+    96.987% 97.583%,
+    95.847% 98.434%,
+    94.551% 99.127%,
+    93.125% 99.647%,
+    91.597% 99.977%,
+    89.99% 100.1%,
+    88.333% 100%
+  );
+}
+
+.leftClip {
+  clip-path: polygon(
+    0% 92.204%,
+    0% 8.246%,
+    0% 8.246%,
+    0.167% 6.806%,
+    0.647% 5.454%,
+    1.411% 4.211%,
+    2.427% 3.096%,
+    3.666% 2.13%,
+    5.098% 1.332%,
+    6.691% 0.722%,
+    8.416% 0.321%,
+    10.243% 0.148%,
+    12.141% 0.224%,
+    90.838% 8.678%,
+    90.838% 8.678%,
+    92.372% 8.931%,
+    93.809% 9.342%,
+    95.134% 9.897%,
+    96.333% 10.583%,
+    97.39% 11.387%,
+    98.288% 12.295%,
+    99.014% 13.294%,
+    99.552% 14.37%,
+    99.885% 15.51%,
+    100% 16.7%,
+    100% 75.295%,
+    100% 75.295%,
+    99.907% 76.368%,
+    99.634% 77.404%,
+    99.192% 78.392%,
+    98.591% 79.322%,
+    97.842% 80.183%,
+    96.956% 80.965%,
+    95.943% 81.658%,
+    94.812% 82.25%,
+    93.576% 82.731%,
+    92.244% 83.091%,
+    13.547% 100%,
+    13.547% 100%,
+    11.516% 100.282%,
+    9.528% 100.266%,
+    7.623% 99.975%,
+    5.842% 99.434%,
+    4.224% 98.664%,
+    2.811% 97.689%,
+    1.641% 96.533%,
+    0.756% 95.218%,
+    0.196% 93.767%,
+    0% 92.204%
+  );
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
