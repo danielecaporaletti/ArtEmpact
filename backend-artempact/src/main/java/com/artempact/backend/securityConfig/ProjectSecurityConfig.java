@@ -86,7 +86,7 @@ public class ProjectSecurityConfig {
                                 .jwt(jwt ->
                                         jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)
                                 )
-                )
+                );
 
         return http.build();
     }
